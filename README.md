@@ -10,7 +10,7 @@ Current supported portals by material:
 | Teak            | Falador                        |
 | Teak            | Troll Stronghold               |
 | Teak            | Camelot                        |
-| Teak            | Valamore (Civitas Illa Fortis) |
+| Teak            | Varlamore (Civitas Illa Fortis) |
 | Teak            | Weiss                          |
 | Teak            | Ardougne                       |
 | Teak            | Kourend                        |

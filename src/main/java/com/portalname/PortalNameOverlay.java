@@ -31,7 +31,7 @@ public class PortalNameOverlay extends Overlay
         PORTAL_LABELS.put(13616, "Lumbridge");
         PORTAL_LABELS.put(13617, "Falador");
         PORTAL_LABELS.put(13618, "Camelot");
-        PORTAL_LABELS.put(50713, "Valamore");
+        PORTAL_LABELS.put(50713, "Varlamore");
         PORTAL_LABELS.put(37581, "Weiss");
         PORTAL_LABELS.put(13619, "Ardougne");
         PORTAL_LABELS.put(29345, "Kourend");
