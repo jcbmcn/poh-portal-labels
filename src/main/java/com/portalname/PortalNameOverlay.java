@@ -49,6 +49,7 @@ public class PortalNameOverlay extends Overlay
         PORTAL_LABELS.put(37596, "Battlefront");
         PORTAL_LABELS.put(37608, "Battlefront");
         PORTAL_LABELS.put(56065, "Battlefront");
+        PORTAL_LABELS.put(13618, "Camelot");
         PORTAL_LABELS.put(33094, "Camelot");
         PORTAL_LABELS.put(33100, "Camelot");
         PORTAL_LABELS.put(33106, "Camelot");
@@ -89,6 +90,7 @@ public class PortalNameOverlay extends Overlay
         PORTAL_LABELS.put(33436, "Ghorrock");
         PORTAL_LABELS.put(33439, "Ghorrock");
         PORTAL_LABELS.put(56060, "Ghorrock");
+        PORTAL_LABELS.put(13615, "Grand Exchange");
         PORTAL_LABELS.put(33093, "Grand Exchange");
         PORTAL_LABELS.put(33099, "Grand Exchange");
         PORTAL_LABELS.put(33105, "Grand Exchange");
