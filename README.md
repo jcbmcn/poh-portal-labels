@@ -42,7 +42,6 @@ Current supported portal locations:
 | Yanille Watchtower |
 
 
-
 ![example_poh_labels.png](assets/example_poh_labels.png)
 
 ## Helpful Tools
