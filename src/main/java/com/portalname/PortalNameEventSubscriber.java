@@ -33,14 +33,14 @@ public class PortalNameEventSubscriber
 
             if (clickedObject != null)
             {
-                log.info("Clicked GameObject: ID={}, Class={}, WorldLocation={}",
+                log.debug("Clicked GameObject: ID={}, Class={}, WorldLocation={}",
                         clickedObject.getId(),
                         clickedObject.getClass().getSimpleName(),
                         clickedObject.getWorldLocation());
             }
             else
             {
-                log.info("Clicked GameObject ID={}, but couldn't find matching GameObject in scene.", id);
+                log.debug("Clicked GameObject ID={}, but couldn't find matching GameObject in scene.", id);
             }
         }
     }

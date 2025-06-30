@@ -14,14 +14,14 @@ import net.runelite.client.eventbus.EventBus;
 )
 public class PortalNamePlugin extends Plugin
 {
-	@Inject
-	private Client client;
+	// @Inject
+	// private Client client;
 
-	@Inject
-	private PortalNameEventSubscriber eventSubscriber;
+	// @Inject
+	// private PortalNameEventSubscriber eventSubscriber;
 
-	@Inject
-	private EventBus eventBus;
+	// @Inject
+	// private EventBus eventBus;
 
 	@Inject
 	private OverlayManager overlayManager;
@@ -34,7 +34,7 @@ public class PortalNamePlugin extends Plugin
 	{
 		// UNCOMMENT BELOW TO GET LOGS FOR OBJECT IDs
 		//eventBus.register(eventSubscriber);
-		log.info("Portal Name plugin started!");
+		log.debug("Portal Name plugin started!");
 		overlayManager.add(overlay);
 	}
 
@@ -43,7 +43,7 @@ public class PortalNamePlugin extends Plugin
 	{
 		// UNCOMMENT BELOW TO GET LOGS FOR OBJECT IDs
 		//eventBus.unregister(eventSubscriber);
-		log.info("Portal Name plugin stopped!");
+		log.debug("Portal Name plugin stopped!");
 		overlayManager.remove(overlay);
 	}
 }
