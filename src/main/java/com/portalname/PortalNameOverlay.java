@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.awt.*;
 import java.util.HashMap;
 import javax.inject.Inject;
+import javax.sound.sampled.Port;
 import java.util.Map;
 
 
@@ -168,6 +169,9 @@ public class PortalNameOverlay extends Overlay
     private final Client client;
 
     @Inject
+    private PortalNameConfig config;
+
+    @Inject
     public PortalNameOverlay(Client client)
     {
         this.client = client;
@@ -214,8 +218,64 @@ public class PortalNameOverlay extends Overlay
                                 graphics.setColor(Color.BLACK); // outline
                                 graphics.drawString(label, textLocation.getX() + xOffset + 1, textLocation.getY() + 1);
 
+                                // Determine color style and set colors
+                                if (config.colorStyle() == PortalNameConfig.ColorStyle.SINGLE)
+                                {
+                                    Color color = config.singleColor();
+                                    graphics.setColor(color);
+                                }
+                                else if (config.colorStyle() == PortalNameConfig.ColorStyle.MULTI)
+                                {
+                                    // Determine if user wants unique colors or portal colors
+                                    if (config.colorSelection() == PortalNameConfig.ColorSelection.PORTAL_COLORS)
+                                    {
+                                        // Use color of portal
 
-                                graphics.setColor(Color.GREEN);
+                                    }
+                                    // Use colors set by user per portal.
+                                    else
+                                    {
+                                        Map<String, Color> portalColors = Map.ofEntries(
+                                                Map.entry("Annakarl", config.annakarlColor()),
+                                                Map.entry("Ape Atoll Dungeon", config.apeAtollColor()),
+                                                Map.entry("Arceuus Library", config.arceuusLibraryColor()),
+                                                Map.entry("Ardougne", config.ardougneColor()),
+                                                Map.entry("Barrows", config.barrowsColor()),
+                                                Map.entry("Battlefront", config.battlefrontColor()),
+                                                Map.entry("Camelot", config.camelotColor()),
+                                                Map.entry("Carrallanger", config.carrallangerColor()),
+                                                Map.entry("Catherby", config.catherbyColor()),
+                                                Map.entry("Cemetery", config.cemeteryColor()),
+                                                Map.entry("Civitas illa Fortis", config.civitasColor()),
+                                                Map.entry("Draynor Manor", config.draynorColor()),
+                                                Map.entry("Falador", config.faladorColor()),
+                                                Map.entry("Fenkenstrain's Castle", config.fenkenstrainColor()),
+                                                Map.entry("Fishing Guild", config.fishingGuildColor()),
+                                                Map.entry("Ghorrock", config.ghorrockColor()),
+                                                Map.entry("Grand Exchange", config.grandExchangeColor()),
+                                                Map.entry("Harmony Island", config.harmonyIslandColor()),
+                                                Map.entry("Kharyrll", config.kharyrllColor()),
+                                                Map.entry("Kourend", config.kourendColor()),
+                                                Map.entry("Lumbridge", config.lumbridgeColor()),
+                                                Map.entry("Lunar Isle", config.lunarIsleColor()),
+                                                Map.entry("Marim", config.marimColor()),
+                                                Map.entry("Mind Altar", config.mindAltarColor()),
+                                                Map.entry("Salve Graveyard", config.salveGraveyardColor()),
+                                                Map.entry("Seers' Village", config.seersVillageColor()),
+                                                Map.entry("Senntisten", config.senntistenColor()),
+                                                Map.entry("Troll Stronghold", config.trollStrongholdColor()),
+                                                Map.entry("Varrock", config.varrockColor()),
+                                                Map.entry("Waterbirth Island", config.waterbirthColor()),
+                                                Map.entry("Weiss", config.weissColor()),
+                                                Map.entry("West Ardougne", config.westArdougneColor()),
+                                                Map.entry("Yanille", config.yanilleColor()),
+                                                Map.entry("Yanille Watchtower", config.yanilleWatchtowerColor())
+                                        );
+
+                                        Color textColor = portalColors.getOrDefault(label, Color.WHITE);
+                                        graphics.setColor(textColor);
+                                    }
+                                }
                                 graphics.drawString(label, textLocation.getX() + xOffset, textLocation.getY());
                             }
                         }

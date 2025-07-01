@@ -1,8 +1,10 @@
 package com.portalname;
 
+import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
 import javax.inject.Inject;
 import net.runelite.api.Client;
+import net.runelite.client.config.ConfigManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
@@ -22,6 +24,9 @@ public class PortalNamePlugin extends Plugin
 
 	// @Inject
 	// private EventBus eventBus;
+
+	@Inject
+	private PortalNameConfig config;
 
 	@Inject
 	private OverlayManager overlayManager;
@@ -45,5 +50,11 @@ public class PortalNamePlugin extends Plugin
 		//eventBus.unregister(eventSubscriber);
 		log.debug("Portal Name plugin stopped!");
 		overlayManager.remove(overlay);
+	}
+
+	@Provides
+	PortalNameConfig provideConfig(ConfigManager configManager)
+	{
+		return configManager.getConfig(PortalNameConfig.class);
 	}
 }
