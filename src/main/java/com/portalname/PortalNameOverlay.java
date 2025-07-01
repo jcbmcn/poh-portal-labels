@@ -6,6 +6,8 @@ import net.runelite.api.Point;
 import net.runelite.api.Scene;
 import net.runelite.api.Perspective;
 import net.runelite.api.Tile;
+import net.runelite.api.Model;
+import net.runelite.api.JagexColor;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -229,8 +231,8 @@ public class PortalNameOverlay extends Overlay
                                     // Determine if user wants unique colors or portal colors
                                     if (config.colorSelection() == PortalNameConfig.ColorSelection.PORTAL_COLORS)
                                     {
-                                        // Use color of portal
-
+                                        Color portalColor = getPortalColor(gameObject);
+                                        graphics.setColor(portalColor);
                                     }
                                     // Use colors set by user per portal.
                                     else
@@ -285,4 +287,76 @@ public class PortalNameOverlay extends Overlay
         }
 
         return null;
-    }}
+    }
+
+    private Color getPortalColor(GameObject gameObject)
+    {
+        Model model = gameObject.getRenderable().getModel();
+        if (model == null)
+        {
+            return Color.WHITE;
+        }
+
+        int[] colors = model.getFaceColors1();
+        if (colors == null || colors.length == 0)
+        {
+            return Color.WHITE;
+        }
+
+        int h = JagexColor.unpackHue((short) colors[0]);
+        int s = JagexColor.unpackSaturation((short) colors[0]);
+        int l = JagexColor.unpackLuminance((short) colors[0]);
+
+        return hslToRgb(h, s, l);
+    }
+
+    private static Color hslToRgb(int hue, int sat, int lum)
+    {
+        float h = (float) hue / JagexColor.HUE_MAX;
+        float s = (float) sat / JagexColor.SATURATION_MAX;
+        float l = (float) lum / JagexColor.LUMINANCE_MAX;
+
+        float q = l < 0.5f ? l * (1 + s) : (l + s - l * s);
+        float p = 2 * l - q;
+
+        float r = hueToRgb(p, q, h + 1f / 3f);
+        float g = hueToRgb(p, q, h);
+        float b = hueToRgb(p, q, h - 1f / 3f);
+
+        return new Color(
+                clamp(Math.round(r * 255)),
+                clamp(Math.round(g * 255)),
+                clamp(Math.round(b * 255))
+        );
+    }
+
+    private static float hueToRgb(float p, float q, float t)
+    {
+        if (t < 0)
+        {
+            t += 1;
+        }
+        if (t > 1)
+        {
+            t -= 1;
+        }
+        if (t < 1f / 6f)
+        {
+            return p + (q - p) * 6f * t;
+        }
+        if (t < 1f / 2f)
+        {
+            return q;
+        }
+        if (t < 2f / 3f)
+        {
+            return p + (q - p) * (2f / 3f - t) * 6f;
+        }
+        return p;
+    }
+
+    private static int clamp(int value)
+    {
+        return Math.min(255, Math.max(0, value));
+    }
+}
