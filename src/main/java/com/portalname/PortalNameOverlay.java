@@ -307,7 +307,11 @@ public class PortalNameOverlay extends Overlay
         int s = JagexColor.unpackSaturation((short) colors[0]);
         int l = JagexColor.unpackLuminance((short) colors[0]);
 
-        return hslToRgb(h, s, l);
+        Color color = hslToRgb(h, s, l);
+
+        // Some portal colors can be quite dark. Brighten them for better
+        // readability while maintaining the original hue and saturation.
+        return brighten(color, 0.4f);
     }
 
     private static Color hslToRgb(int hue, int sat, int lum)
@@ -358,5 +362,13 @@ public class PortalNameOverlay extends Overlay
     private static int clamp(int value)
     {
         return Math.min(255, Math.max(0, value));
+    }
+
+    private static Color brighten(Color color, float factor)
+    {
+        float[] hsb = Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), null);
+        hsb[2] = Math.min(1f, hsb[2] + factor);
+        int rgb = Color.HSBtoRGB(hsb[0], hsb[1], hsb[2]);
+        return new Color(rgb);
     }
 }
