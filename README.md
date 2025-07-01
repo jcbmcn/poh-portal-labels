@@ -44,6 +44,10 @@ Current supported portal locations:
 
 ![example_poh_labels.png](assets/example_poh_labels.png)
 
+### Configuration
+The plugin now includes a **Text Position** option so you can choose where the
+labels appear relative to each portal (Top, Middle, or Bottom).
+
 ## Helpful Tools
 
 ### What does `PortalNameEventSubscriber` do?

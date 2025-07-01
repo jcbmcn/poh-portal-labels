@@ -16,8 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.awt.*;
 import java.util.HashMap;
 import javax.inject.Inject;
-import javax.sound.sampled.Port;
 import java.util.Map;
+import com.portalname.PortalNameConfig.TextPosition;
 
 
 @Slf4j
@@ -210,11 +210,24 @@ public class PortalNameOverlay extends Overlay
                         LocalPoint localLocation = gameObject.getLocalLocation();
                         if (localLocation != null)
                         {
-                            // Use localToCanvas with height offset so it appears *above* the portal
-                            int zOffset = 100;
+                            // Offset determines where the label is drawn on the portal
+                            int zOffset;
+                            switch (config.textPosition())
+                            {
+                                case TOP:
+                                    zOffset = 150;
+                                    break;
+                                case BOTTOM:
+                                    zOffset = 20;
+                                    break;
+                                case MIDDLE:
+                                default:
+                                    zOffset = 100;
+                                    break;
+                            }
                             int xOffset = -15;
-                            Point textLocation = Perspective.localToCanvas(client, localLocation, client.getLocalPlayer().getWorldLocation().getPlane()
-                                    , zOffset);
+                            Point textLocation = Perspective.localToCanvas(client, localLocation,
+                                    client.getLocalPlayer().getWorldLocation().getPlane(), zOffset);
                             if (textLocation != null)
                             {
                                 graphics.setColor(Color.BLACK); // outline

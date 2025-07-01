@@ -14,6 +14,14 @@ public interface PortalNameConfig extends Config {
         MULTI
     }
 
+    // Position of the label relative to the portal
+    enum TextPosition
+    {
+        TOP,
+        MIDDLE,
+        BOTTOM
+    }
+
     @ConfigItem(
             keyName = "colorStyle",
             name = "Color Style",
@@ -22,6 +30,16 @@ public interface PortalNameConfig extends Config {
     default ColorStyle colorStyle()
     {
         return ColorStyle.SINGLE;   // Default to single color
+    }
+
+    @ConfigItem(
+            keyName = "textPosition",
+            name = "Text Position",
+            description = "Where labels are drawn relative to the portal"
+    )
+    default TextPosition textPosition()
+    {
+        return TextPosition.MIDDLE;
     }
 
 
