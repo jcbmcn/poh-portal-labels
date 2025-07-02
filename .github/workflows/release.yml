@@ -22,6 +22,8 @@ jobs:
         run: |
           npm ci
           npm install --save-dev @semantic-release/commit-analyzer
+          npm install --save-dev conventional-changelog-conventionalcommits
+
 
       - name: Run semantic-release
         env:
