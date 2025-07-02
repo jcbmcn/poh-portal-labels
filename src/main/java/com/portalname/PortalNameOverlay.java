@@ -225,7 +225,8 @@ public class PortalNameOverlay extends Overlay
                                     zOffset = 100;
                                     break;
                             }
-                            int xOffset = -15;
+                            FontMetrics metrics = graphics.getFontMetrics();
+                            int xOffset = -(metrics.stringWidth(label) / 2);
                             Point textLocation = Perspective.localToCanvas(client, localLocation,
                                     client.getLocalPlayer().getWorldLocation().getPlane(), zOffset);
                             if (textLocation != null)
