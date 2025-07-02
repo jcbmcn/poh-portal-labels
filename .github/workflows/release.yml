@@ -9,6 +9,7 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
@@ -18,17 +19,9 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: |
-          npm init -y
-          npm install \
-            semantic-release \
-            @semantic-release/git \
-            @semantic-release/changelog \
-            @semantic-release/github \
-            @semantic-release/commit-analyzer \
-            @semantic-release/release-notes-generator
+        run: npm ci
 
       - name: Run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+        run: npm run semantic-release
