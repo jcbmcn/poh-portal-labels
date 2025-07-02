@@ -11,13 +11,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: Install semantic-release
-        run: npm install -g semantic-release @semantic-release/git @semantic-release/changelog @semantic-release/github
+
+      - name: Install dependencies
+        run: |
+          npm init -y
+          npm install \
+            semantic-release \
+            @semantic-release/git \
+            @semantic-release/changelog \
+            @semantic-release/github \
+            @semantic-release/commit-analyzer \
+            @semantic-release/release-notes-generator
+
       - name: Run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: semantic-release
+        run: npx semantic-release
