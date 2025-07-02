@@ -6,6 +6,9 @@ import net.runelite.api.Point;
 import net.runelite.api.Scene;
 import net.runelite.api.Perspective;
 import net.runelite.api.Tile;
+import net.runelite.api.Model;
+import net.runelite.api.JagexColor;
+import net.runelite.api.gameval.ObjectID;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -15,6 +18,7 @@ import java.awt.*;
 import java.util.HashMap;
 import javax.inject.Inject;
 import java.util.Map;
+import com.portalname.PortalNameConfig.TextPosition;
 
 
 @Slf4j
@@ -168,6 +172,9 @@ public class PortalNameOverlay extends Overlay
     private final Client client;
 
     @Inject
+    private PortalNameConfig config;
+
+    @Inject
     public PortalNameOverlay(Client client)
     {
         this.client = client;
@@ -183,6 +190,31 @@ public class PortalNameOverlay extends Overlay
 
         Scene scene = client.getLocalPlayer().getWorldView().getScene();
         Tile[][] tiles = scene.getTiles()[client.getLocalPlayer().getWorldLocation().getPlane()];
+
+        boolean inPoh = false;
+        outer:
+        for (int x = 0; x < tiles.length; x++)
+        {
+            for (int y = 0; y < tiles[x].length; y++)
+            {
+                Tile tile = tiles[x][y];
+                if (tile == null) continue;
+
+                for (GameObject gameObject : tile.getGameObjects())
+                {
+                    if (gameObject != null && gameObject.getId() == ObjectID.POH_EXIT_PORTAL)
+                    {
+                        inPoh = true;
+                        break outer;
+                    }
+                }
+            }
+        }
+
+        if (!inPoh)
+        {
+            return null;
+        }
 
         for (int x = 0; x < tiles.length; x++)
         {
@@ -204,18 +236,88 @@ public class PortalNameOverlay extends Overlay
                         LocalPoint localLocation = gameObject.getLocalLocation();
                         if (localLocation != null)
                         {
-                            // Use localToCanvas with height offset so it appears *above* the portal
-                            int zOffset = 100;
-                            int xOffset = -15;
-                            Point textLocation = Perspective.localToCanvas(client, localLocation, client.getLocalPlayer().getWorldLocation().getPlane()
-                                    , zOffset);
+                            // Offset determines where the label is drawn on the portal
+                            int zOffset;
+                            switch (config.textPosition())
+                            {
+                                case TOP:
+                                    zOffset = 250;
+                                    break;
+                                case BOTTOM:
+                                    zOffset = -50;
+                                    break;
+                                case MIDDLE:
+                                default:
+                                    zOffset = 100;
+                                    break;
+                            }
+                            FontMetrics metrics = graphics.getFontMetrics();
+                            int xOffset = -(metrics.stringWidth(label) / 2);
+                            Point textLocation = Perspective.localToCanvas(client, localLocation,
+                                    client.getLocalPlayer().getWorldLocation().getPlane(), zOffset);
                             if (textLocation != null)
                             {
                                 graphics.setColor(Color.BLACK); // outline
                                 graphics.drawString(label, textLocation.getX() + xOffset + 1, textLocation.getY() + 1);
 
+                                // Determine color style and set colors
+                                if (config.colorStyle() == PortalNameConfig.ColorStyle.SINGLE)
+                                {
+                                    Color color = config.singleColor();
+                                    graphics.setColor(color);
+                                }
+                                else if (config.colorStyle() == PortalNameConfig.ColorStyle.MULTI)
+                                {
+                                    // Determine if user wants unique colors or portal colors
+                                    if (config.colorSelection() == PortalNameConfig.ColorSelection.PORTAL_COLORS)
+                                    {
+                                        Color portalColor = getPortalColor(gameObject);
+                                        graphics.setColor(portalColor);
+                                    }
+                                    // Use colors set by user per portal.
+                                    else
+                                    {
+                                        Map<String, Color> portalColors = Map.ofEntries(
+                                                Map.entry("Annakarl", config.annakarlColor()),
+                                                Map.entry("Ape Atoll Dungeon", config.apeAtollColor()),
+                                                Map.entry("Arceuus Library", config.arceuusLibraryColor()),
+                                                Map.entry("Ardougne", config.ardougneColor()),
+                                                Map.entry("Barrows", config.barrowsColor()),
+                                                Map.entry("Battlefront", config.battlefrontColor()),
+                                                Map.entry("Camelot", config.camelotColor()),
+                                                Map.entry("Carrallanger", config.carrallangerColor()),
+                                                Map.entry("Catherby", config.catherbyColor()),
+                                                Map.entry("Cemetery", config.cemeteryColor()),
+                                                Map.entry("Civitas illa Fortis", config.civitasColor()),
+                                                Map.entry("Draynor Manor", config.draynorColor()),
+                                                Map.entry("Falador", config.faladorColor()),
+                                                Map.entry("Fenkenstrain's Castle", config.fenkenstrainColor()),
+                                                Map.entry("Fishing Guild", config.fishingGuildColor()),
+                                                Map.entry("Ghorrock", config.ghorrockColor()),
+                                                Map.entry("Grand Exchange", config.grandExchangeColor()),
+                                                Map.entry("Harmony Island", config.harmonyIslandColor()),
+                                                Map.entry("Kharyrll", config.kharyrllColor()),
+                                                Map.entry("Kourend", config.kourendColor()),
+                                                Map.entry("Lumbridge", config.lumbridgeColor()),
+                                                Map.entry("Lunar Isle", config.lunarIsleColor()),
+                                                Map.entry("Marim", config.marimColor()),
+                                                Map.entry("Mind Altar", config.mindAltarColor()),
+                                                Map.entry("Salve Graveyard", config.salveGraveyardColor()),
+                                                Map.entry("Seers' Village", config.seersVillageColor()),
+                                                Map.entry("Senntisten", config.senntistenColor()),
+                                                Map.entry("Troll Stronghold", config.trollStrongholdColor()),
+                                                Map.entry("Varrock", config.varrockColor()),
+                                                Map.entry("Waterbirth Island", config.waterbirthColor()),
+                                                Map.entry("Weiss", config.weissColor()),
+                                                Map.entry("West Ardougne", config.westArdougneColor()),
+                                                Map.entry("Yanille", config.yanilleColor()),
+                                                Map.entry("Yanille Watchtower", config.yanilleWatchtowerColor())
+                                        );
 
-                                graphics.setColor(Color.GREEN);
+                                        Color textColor = portalColors.getOrDefault(label, Color.WHITE);
+                                        graphics.setColor(textColor);
+                                    }
+                                }
                                 graphics.drawString(label, textLocation.getX() + xOffset, textLocation.getY());
                             }
                         }
@@ -225,4 +327,88 @@ public class PortalNameOverlay extends Overlay
         }
 
         return null;
-    }}
+    }
+
+    private Color getPortalColor(GameObject gameObject)
+    {
+        Model model = gameObject.getRenderable().getModel();
+        if (model == null)
+        {
+            return Color.WHITE;
+        }
+
+        int[] colors = model.getFaceColors1();
+        if (colors == null || colors.length == 0)
+        {
+            return Color.WHITE;
+        }
+
+        int h = JagexColor.unpackHue((short) colors[0]);
+        int s = JagexColor.unpackSaturation((short) colors[0]);
+        int l = JagexColor.unpackLuminance((short) colors[0]);
+
+        Color color = hslToRgb(h, s, l);
+
+        // Some portal colors can be quite dark. Brighten them for better
+        // readability while maintaining the original hue and saturation.
+        return brighten(color, 0.4f);
+    }
+
+    private static Color hslToRgb(int hue, int sat, int lum)
+    {
+        float h = (float) hue / JagexColor.HUE_MAX;
+        float s = (float) sat / JagexColor.SATURATION_MAX;
+        float l = (float) lum / JagexColor.LUMINANCE_MAX;
+
+        float q = l < 0.5f ? l * (1 + s) : (l + s - l * s);
+        float p = 2 * l - q;
+
+        float r = hueToRgb(p, q, h + 1f / 3f);
+        float g = hueToRgb(p, q, h);
+        float b = hueToRgb(p, q, h - 1f / 3f);
+
+        return new Color(
+                clamp(Math.round(r * 255)),
+                clamp(Math.round(g * 255)),
+                clamp(Math.round(b * 255))
+        );
+    }
+
+    private static float hueToRgb(float p, float q, float t)
+    {
+        if (t < 0)
+        {
+            t += 1;
+        }
+        if (t > 1)
+        {
+            t -= 1;
+        }
+        if (t < 1f / 6f)
+        {
+            return p + (q - p) * 6f * t;
+        }
+        if (t < 1f / 2f)
+        {
+            return q;
+        }
+        if (t < 2f / 3f)
+        {
+            return p + (q - p) * (2f / 3f - t) * 6f;
+        }
+        return p;
+    }
+
+    private static int clamp(int value)
+    {
+        return Math.min(255, Math.max(0, value));
+    }
+
+    private static Color brighten(Color color, float factor)
+    {
+        float[] hsb = Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), null);
+        hsb[2] = Math.min(1f, hsb[2] + factor);
+        int rgb = Color.HSBtoRGB(hsb[0], hsb[1], hsb[2]);
+        return new Color(rgb);
+    }
+}
