@@ -8,6 +8,7 @@ import net.runelite.api.Perspective;
 import net.runelite.api.Tile;
 import net.runelite.api.Model;
 import net.runelite.api.JagexColor;
+import net.runelite.api.gameval.ObjectID;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -189,6 +190,31 @@ public class PortalNameOverlay extends Overlay
 
         Scene scene = client.getLocalPlayer().getWorldView().getScene();
         Tile[][] tiles = scene.getTiles()[client.getLocalPlayer().getWorldLocation().getPlane()];
+
+        boolean inPoh = false;
+        outer:
+        for (int x = 0; x < tiles.length; x++)
+        {
+            for (int y = 0; y < tiles[x].length; y++)
+            {
+                Tile tile = tiles[x][y];
+                if (tile == null) continue;
+
+                for (GameObject gameObject : tile.getGameObjects())
+                {
+                    if (gameObject != null && gameObject.getId() == ObjectID.POH_EXIT_PORTAL)
+                    {
+                        inPoh = true;
+                        break outer;
+                    }
+                }
+            }
+        }
+
+        if (!inPoh)
+        {
+            return null;
+        }
 
         for (int x = 0; x < tiles.length; x++)
         {
