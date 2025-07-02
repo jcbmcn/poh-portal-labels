@@ -215,10 +215,10 @@ public class PortalNameOverlay extends Overlay
                             switch (config.textPosition())
                             {
                                 case TOP:
-                                    zOffset = 150;
+                                    zOffset = 250;
                                     break;
                                 case BOTTOM:
-                                    zOffset = 20;
+                                    zOffset = -50;
                                     break;
                                 case MIDDLE:
                                 default:
