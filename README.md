@@ -1,4 +1,6 @@
 # POH Portal Labels
+
+![logo.png](assets/logo.png)
 Adds basic label names to POH portals. When I first created portals I often forgot which portal went where, and for speed I had wished there was a way to see where the portals went without having to hover or right-click. 
 
 ## Color Options
