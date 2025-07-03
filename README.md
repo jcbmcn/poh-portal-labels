@@ -1,7 +1,18 @@
 # POH Portal Labels
 Adds basic label names to POH portals. When I first created portals I often forgot which portal went where, and for speed I had wished there was a way to see where the portals went without having to hover or right-click. 
 
-Current supported portal locations:
+## Color Options
+- Single - One color for all portals
+- Multi - Portal Colors or Unique Colors
+  - Portal - Matches color of portals for label text
+  - Unique  - Unique color for each portal set by user
+
+## Positioning
+- Top
+- Center
+- Bottom
+
+## Current supported portal locations
 
 <!--lint ignore html_table-->
 | Location |
@@ -44,11 +55,19 @@ Current supported portal locations:
 
 ![example_poh_labels.png](assets/example_poh_labels.png)
 
-### Configuration
-The plugin now includes a **Text Position** option so you can choose where the
-labels appear relative to each portal (Top, Middle, or Bottom).
+### Single Color
+![single.png](assets/single.png)
 
-## Helpful Tools
+## Multi - Portal Color
+![portal_color.png](assets/portal_color.png)
+
+## Multi - Unique Color
+![unique.png](assets/unique.png)
+
+## Configuration Settings
+![config.png](assets/config.png)
+
+## Developer Use: Helpful Tools
 
 ### What does `PortalNameEventSubscriber` do?
 
