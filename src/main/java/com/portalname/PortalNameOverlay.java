@@ -318,6 +318,7 @@ public class PortalNameOverlay extends Overlay
                                     // Use colors set by user per portal.
                                     else
                                     {
+                                        updatePortalColors();   // pull current color config
                                         Color textColor = portalColors.getOrDefault(label, Color.WHITE);
                                         graphics.setColor(textColor);
                                     }
