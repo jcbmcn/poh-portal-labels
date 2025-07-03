@@ -169,6 +169,8 @@ public class PortalNameOverlay extends Overlay
         PORTAL_LABELS.put(56047, "Yanille Watchtower");
     }
 
+    private final Map<String, Color> portalColors = new HashMap<>();
+
     private final Client client;
 
     @Inject
@@ -180,6 +182,45 @@ public class PortalNameOverlay extends Overlay
         this.client = client;
         setPosition(OverlayPosition.DYNAMIC);
         setLayer(OverlayLayer.ABOVE_SCENE);
+    }
+
+    void updatePortalColors()
+    {
+        portalColors.clear();
+        portalColors.put("Annakarl", config.annakarlColor());
+        portalColors.put("Ape Atoll Dungeon", config.apeAtollColor());
+        portalColors.put("Arceuus Library", config.arceuusLibraryColor());
+        portalColors.put("Ardougne", config.ardougneColor());
+        portalColors.put("Barrows", config.barrowsColor());
+        portalColors.put("Battlefront", config.battlefrontColor());
+        portalColors.put("Camelot", config.camelotColor());
+        portalColors.put("Carrallanger", config.carrallangerColor());
+        portalColors.put("Catherby", config.catherbyColor());
+        portalColors.put("Cemetery", config.cemeteryColor());
+        portalColors.put("Civitas illa Fortis", config.civitasColor());
+        portalColors.put("Draynor Manor", config.draynorColor());
+        portalColors.put("Falador", config.faladorColor());
+        portalColors.put("Fenkenstrain's Castle", config.fenkenstrainColor());
+        portalColors.put("Fishing Guild", config.fishingGuildColor());
+        portalColors.put("Ghorrock", config.ghorrockColor());
+        portalColors.put("Grand Exchange", config.grandExchangeColor());
+        portalColors.put("Harmony Island", config.harmonyIslandColor());
+        portalColors.put("Kharyrll", config.kharyrllColor());
+        portalColors.put("Kourend", config.kourendColor());
+        portalColors.put("Lumbridge", config.lumbridgeColor());
+        portalColors.put("Lunar Isle", config.lunarIsleColor());
+        portalColors.put("Marim", config.marimColor());
+        portalColors.put("Mind Altar", config.mindAltarColor());
+        portalColors.put("Salve Graveyard", config.salveGraveyardColor());
+        portalColors.put("Seers' Village", config.seersVillageColor());
+        portalColors.put("Senntisten", config.senntistenColor());
+        portalColors.put("Troll Stronghold", config.trollStrongholdColor());
+        portalColors.put("Varrock", config.varrockColor());
+        portalColors.put("Waterbirth Island", config.waterbirthColor());
+        portalColors.put("Weiss", config.weissColor());
+        portalColors.put("West Ardougne", config.westArdougneColor());
+        portalColors.put("Yanille", config.yanilleColor());
+        portalColors.put("Yanille Watchtower", config.yanilleWatchtowerColor());
     }
 
     @Override
@@ -277,43 +318,7 @@ public class PortalNameOverlay extends Overlay
                                     // Use colors set by user per portal.
                                     else
                                     {
-                                        Map<String, Color> portalColors = Map.ofEntries(
-                                                Map.entry("Annakarl", config.annakarlColor()),
-                                                Map.entry("Ape Atoll Dungeon", config.apeAtollColor()),
-                                                Map.entry("Arceuus Library", config.arceuusLibraryColor()),
-                                                Map.entry("Ardougne", config.ardougneColor()),
-                                                Map.entry("Barrows", config.barrowsColor()),
-                                                Map.entry("Battlefront", config.battlefrontColor()),
-                                                Map.entry("Camelot", config.camelotColor()),
-                                                Map.entry("Carrallanger", config.carrallangerColor()),
-                                                Map.entry("Catherby", config.catherbyColor()),
-                                                Map.entry("Cemetery", config.cemeteryColor()),
-                                                Map.entry("Civitas illa Fortis", config.civitasColor()),
-                                                Map.entry("Draynor Manor", config.draynorColor()),
-                                                Map.entry("Falador", config.faladorColor()),
-                                                Map.entry("Fenkenstrain's Castle", config.fenkenstrainColor()),
-                                                Map.entry("Fishing Guild", config.fishingGuildColor()),
-                                                Map.entry("Ghorrock", config.ghorrockColor()),
-                                                Map.entry("Grand Exchange", config.grandExchangeColor()),
-                                                Map.entry("Harmony Island", config.harmonyIslandColor()),
-                                                Map.entry("Kharyrll", config.kharyrllColor()),
-                                                Map.entry("Kourend", config.kourendColor()),
-                                                Map.entry("Lumbridge", config.lumbridgeColor()),
-                                                Map.entry("Lunar Isle", config.lunarIsleColor()),
-                                                Map.entry("Marim", config.marimColor()),
-                                                Map.entry("Mind Altar", config.mindAltarColor()),
-                                                Map.entry("Salve Graveyard", config.salveGraveyardColor()),
-                                                Map.entry("Seers' Village", config.seersVillageColor()),
-                                                Map.entry("Senntisten", config.senntistenColor()),
-                                                Map.entry("Troll Stronghold", config.trollStrongholdColor()),
-                                                Map.entry("Varrock", config.varrockColor()),
-                                                Map.entry("Waterbirth Island", config.waterbirthColor()),
-                                                Map.entry("Weiss", config.weissColor()),
-                                                Map.entry("West Ardougne", config.westArdougneColor()),
-                                                Map.entry("Yanille", config.yanilleColor()),
-                                                Map.entry("Yanille Watchtower", config.yanilleWatchtowerColor())
-                                        );
-
+                                        updatePortalColors();   // pull current color config
                                         Color textColor = portalColors.getOrDefault(label, Color.WHITE);
                                         graphics.setColor(textColor);
                                     }
