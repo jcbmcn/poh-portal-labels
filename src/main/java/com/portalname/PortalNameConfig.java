@@ -417,7 +417,32 @@ public interface PortalNameConfig extends Config {
     @Alpha
     default Color yanilleWatchtowerColor() { return Color.GREEN; }
 
+    // CUSTOM NAME OVERRIDES SECTION
+    @ConfigSection(
+            name = "Custom Portal Names",
+            description = "Override default portal names with custom names",
+            position = 3
+    )
+    String customNames = "customNames";
 
+    @ConfigItem(
+            keyName = "enableCustomNames",
+            name = "Enable Custom Names",
+            description = "Enable custom portal name overrides",
+            section = "customNames",
+            position = 0
+    )
+    default boolean enableCustomNames() { return false; }
 
+    @ConfigItem(
+            keyName = "customNamesList",
+            name = "Custom Names",
+            description = "Custom portal names (format: OriginalName=CustomName, one per line)<br>Example: Kharyrll=Canifis",
+            section = "customNames",
+            position = 1
+    )
+    default String customNamesList() {
+        return "Kharyrll=Canifis\nSenntisten=Digsite";
+    }
 
 }

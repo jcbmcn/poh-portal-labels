@@ -170,6 +170,7 @@ public class PortalNameOverlay extends Overlay
     }
 
     private final Map<String, Color> portalColors = new HashMap<>();
+    private final Map<String, String> customNameOverrides = new HashMap<>();
 
     private final Client client;
 
@@ -187,6 +188,7 @@ public class PortalNameOverlay extends Overlay
     void updatePortalColors()
     {
         portalColors.clear();
+        updateCustomNames();
         portalColors.put("Annakarl", config.annakarlColor());
         portalColors.put("Ape Atoll Dungeon", config.apeAtollColor());
         portalColors.put("Arceuus Library", config.arceuusLibraryColor());
@@ -221,6 +223,43 @@ public class PortalNameOverlay extends Overlay
         portalColors.put("West Ardougne", config.westArdougneColor());
         portalColors.put("Yanille", config.yanilleColor());
         portalColors.put("Yanille Watchtower", config.yanilleWatchtowerColor());
+    }
+
+    private void updateCustomNames()
+    {
+        customNameOverrides.clear();
+        
+        if (!config.enableCustomNames())
+        {
+            return;
+        }
+        
+        String customNamesList = config.customNamesList();
+        if (customNamesList == null || customNamesList.trim().isEmpty())
+        {
+            return;
+        }
+        
+        String[] lines = customNamesList.split("\n");
+        for (String line : lines)
+        {
+            line = line.trim();
+            if (line.isEmpty() || !line.contains("="))
+            {
+                continue;
+            }
+            
+            String[] parts = line.split("=", 2);
+            if (parts.length == 2)
+            {
+                String originalName = parts[0].trim();
+                String customName = parts[1].trim();
+                if (!originalName.isEmpty() && !customName.isEmpty())
+                {
+                    customNameOverrides.put(originalName, customName);
+                }
+            }
+        }
     }
 
     @Override
@@ -270,10 +309,13 @@ public class PortalNameOverlay extends Overlay
                         continue;
 
                     int id = gameObject.getId();
-                    String label = PORTAL_LABELS.get(id);
+                    String originalLabel = PORTAL_LABELS.get(id);
 
-                    if (label != null)
+                    if (originalLabel != null)
                     {
+                        // Check for custom name override
+                        updateCustomNames();
+                        String label = customNameOverrides.getOrDefault(originalLabel, originalLabel);
                         LocalPoint localLocation = gameObject.getLocalLocation();
                         if (localLocation != null)
                         {
@@ -319,7 +361,8 @@ public class PortalNameOverlay extends Overlay
                                     else
                                     {
                                         updatePortalColors();   // pull current color config
-                                        Color textColor = portalColors.getOrDefault(label, Color.WHITE);
+                                        // Use original label for color lookup to maintain consistency
+                                        Color textColor = portalColors.getOrDefault(originalLabel, Color.WHITE);
                                         graphics.setColor(textColor);
                                     }
                                 }

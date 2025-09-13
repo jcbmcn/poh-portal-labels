@@ -1,7 +1,7 @@
 # POH Portal Labels
 
 ![logo.png](assets/logo.png)
-Adds basic label names to POH portals. When I first created portals I often forgot which portal went where, and for speed I had wished there was a way to see where the portals went without having to hover or right-click. 
+Adds basic label names to POH portals. When I first created portals I often forgot which portal went where, and for speed I had wished there was a way to see where the portals went without having to hover or right-click.
 
 ## Color Options
 - Single - One color for all portals
@@ -13,6 +13,20 @@ Adds basic label names to POH portals. When I first created portals I often forg
 - Top
 - Center
 - Bottom
+
+## Custom Portal Names
+You can override the default portal names with custom names of your choice. This is useful if you prefer shorter names or "common" names (e.g., "Canifis" instead of "Kharyrll").
+
+To use custom names:
+1. Enable the "Enable Custom Names" checkbox in the configuration
+2. Enter your custom names in the format: `OriginalName=CustomName` (one per line)
+
+Example custom names:
+```
+Kharyrll=Canifis
+Senntisten=Digsite
+Civitas illa Fortis=Varlamore
+```
 
 ## Current supported portal locations
 
