@@ -1,3 +1,11 @@
+# [1.1.0](https://github.com/jcbmcn/poh-portal-labels/compare/v1.0.0...v1.1.0) (2025-09-13)
+
+
+### Features
+
+* new cusom names by [@syrifgit](https://github.com/syrifgit) ([23dbf6f](https://github.com/jcbmcn/poh-portal-labels/commit/23dbf6f58e6da9bf16be7e7c80dd4217d97c30a6))
+* new cusom names by [@syrifgit](https://github.com/syrifgit) ([#33](https://github.com/jcbmcn/poh-portal-labels/issues/33)) ([0478940](https://github.com/jcbmcn/poh-portal-labels/commit/0478940def0239b253a96d1caccbb66f2e179a8b))
+
 # 1.0.0 (2025-07-02)
 
 
