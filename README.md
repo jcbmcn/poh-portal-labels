@@ -25,7 +25,7 @@ Example custom names:
 ```
 Kharyrll=Canifis
 Senntisten=Digsite
-Kourend=Great Kourend
+Civitas illa Fortis=Varlamore
 ```
 
 ## Current supported portal locations
