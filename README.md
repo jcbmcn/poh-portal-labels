@@ -15,6 +15,8 @@ Adds basic label names to POH portals. When I first created portals I often forg
 - Bottom
 
 ## Custom Portal Names
+>Special thanks to [@syrifgit](https://github.com/syrifgit) for crafting this section.
+
 You can override the default portal names with custom names of your choice. This is useful if you prefer shorter names or "common" names (e.g., "Canifis" instead of "Kharyrll").
 
 To use custom names:
