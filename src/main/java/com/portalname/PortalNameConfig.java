@@ -429,7 +429,8 @@ public interface PortalNameConfig extends Config {
             keyName = "enableCustomNames",
             name = "Enable Custom Names",
             description = "Enable custom portal name overrides",
-            section = "customNames"
+            section = "customNames",
+            position = 0
     )
     default boolean enableCustomNames() { return false; }
 
@@ -437,10 +438,11 @@ public interface PortalNameConfig extends Config {
             keyName = "customNamesList",
             name = "Custom Names",
             description = "Custom portal names (format: OriginalName=CustomName, one per line)<br>Example: Kharyrll=Canifis",
-            section = "customNames"
+            section = "customNames",
+            position = 1
     )
-    default String customNamesList() { 
-        return "Kharyrll=Canifis\nSenntisten=Digsite\nKourend=Great Kourend"; 
+    default String customNamesList() {
+        return "Kharyrll=Canifis\nSenntisten=Digsite";
     }
 
 }
