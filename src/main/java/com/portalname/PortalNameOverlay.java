@@ -165,6 +165,7 @@ public class PortalNameOverlay extends Overlay
         PORTAL_LABELS.put(33109, "Yanille");
         PORTAL_LABELS.put(56048, "Yanille");
         PORTAL_LABELS.put(33096, "Yanille Watchtower");
+        PORTAL_LABELS.put(13620, "Yanille Watchtower"); // pulled from event subscriber
         PORTAL_LABELS.put(33108, "Yanille Watchtower");
         PORTAL_LABELS.put(56047, "Yanille Watchtower");
     }
@@ -311,7 +312,7 @@ public class PortalNameOverlay extends Overlay
                     int id = gameObject.getId();
                     String originalLabel = PORTAL_LABELS.get(id);
 
-                    if (originalLabel != null)
+                    if (originalLabel != null && isPortalObject(gameObject))
                     {
                         // Check for custom name override
                         updateCustomNames();
@@ -458,5 +459,19 @@ public class PortalNameOverlay extends Overlay
         hsb[2] = Math.min(1f, hsb[2] + factor);
         int rgb = Color.HSBtoRGB(hsb[0], hsb[1], hsb[2]);
         return new Color(rgb);
+    }
+
+    private boolean isPortalObject(GameObject gameObject)
+    {
+        net.runelite.api.ObjectComposition composition = client.getObjectDefinition(gameObject.getId());
+        if (composition == null)
+        {
+            return false;
+        }
+
+        String name = composition.getName();
+        // Portal objects should have "Portal" in their name
+        // This filters out pets and other objects that might share the same ID
+        return name != null && name.contains("Portal");
     }
 }
