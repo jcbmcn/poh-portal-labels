@@ -1,3 +1,11 @@
+## [1.1.1](https://github.com/jcbmcn/poh-portal-labels/compare/v1.1.0...v1.1.1) (2025-11-29)
+
+
+### Bug Fixes
+
+* **pet-label:** Validated portal names over portal objects only ([595a033](https://github.com/jcbmcn/poh-portal-labels/commit/595a033e98a883019e93b3e47b2fe289ca6eaba2))
+* **pet-label:** Validated portal names over portal objects only ([#37](https://github.com/jcbmcn/poh-portal-labels/issues/37)) ([bc3e8f2](https://github.com/jcbmcn/poh-portal-labels/commit/bc3e8f2bf0fd8cae58e5736561e1e1ea49e237e9))
+
 # [1.1.0](https://github.com/jcbmcn/poh-portal-labels/compare/v1.0.0...v1.1.0) (2025-09-13)
 
 
