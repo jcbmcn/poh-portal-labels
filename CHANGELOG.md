@@ -1,3 +1,11 @@
+## [1.1.2](https://github.com/jcbmcn/poh-portal-labels/compare/v1.1.1...v1.1.2) (2025-12-11)
+
+
+### Bug Fixes
+
+* **portal-validation:** Allow portal objects with null names (IDs 136… ([#38](https://github.com/jcbmcn/poh-portal-labels/issues/38)) ([25def36](https://github.com/jcbmcn/poh-portal-labels/commit/25def36d792c3adc7c34ec07c72192cb1a98898e))
+* **portal-validation:** Allow portal objects with null names (IDs 13615-13633) ([7c9d966](https://github.com/jcbmcn/poh-portal-labels/commit/7c9d9664afa781aa570e45832b9fa84669a9a5c4))
+
 ## [1.1.1](https://github.com/jcbmcn/poh-portal-labels/compare/v1.1.0...v1.1.1) (2025-11-29)
 
 
