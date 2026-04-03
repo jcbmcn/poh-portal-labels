@@ -40,6 +40,10 @@
 - **Critical:** null-check every tile (`if (tile == null) continue;`) — `getTiles()` allocates the full `4×104×104` array but not all cells are populated
 - Issue #35 most likely self-closes: all 8 Yanille/Watchtower IDs are already present in `PORTAL_LABELS`; the bug is almost certainly explained by the upper-floor scan gap
 
+**Plans:** 1 plan
+Plans:
+- [ ] 01-01-PLAN.md — Fix multi-plane tile scan + build verification
+
 ---
 
 ### Phase 2: New Destination IDs
@@ -90,7 +94,7 @@
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Multi-Plane Fix | 0/? | Not started | - |
+| 1. Multi-Plane Fix | 0/1 | Not started | - |
 | 2. New Destination IDs | 0/? | Not started | - |
 | 3. Pet False Positive Fix | 0/? | Not started | - |
 
