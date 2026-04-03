@@ -60,21 +60,21 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FLOOR-01 | Phase 1 | Pending |
-| FLOOR-02 | Phase 1 | Pending |
-| DATA-01 | Phase 1 | Pending |
-| DATA-02 | Phase 2 | Pending |
-| DATA-03 | Phase 2 | Pending |
-| DATA-04 | Phase 2 | Pending |
-| DATA-05 | Phase 2 | Pending |
-| DATA-06 | Phase 2 | Pending |
-| DATA-07 | Phase 2 | Pending |
-| DATA-08 | Phase 2 | Pending |
-| DATA-09 | Phase 2 | Pending |
-| DATA-10 | Phase 2 | Pending |
-| DATA-11 | Phase 2 | Pending |
-| ACC-01 | Phase 3 | Pending |
-| ACC-02 | Phase 1 | Pending |
+| FLOOR-01 | Phase 1: Multi-Plane Fix | Pending |
+| FLOOR-02 | Phase 1: Multi-Plane Fix | Pending |
+| DATA-01 | Phase 1: Multi-Plane Fix | Pending |
+| ACC-02 | Phase 1: Multi-Plane Fix | Pending |
+| DATA-02 | Phase 2: New Destination IDs | Pending |
+| DATA-03 | Phase 2: New Destination IDs | Pending |
+| DATA-04 | Phase 2: New Destination IDs | Pending |
+| DATA-05 | Phase 2: New Destination IDs | Pending |
+| DATA-06 | Phase 2: New Destination IDs | Pending |
+| DATA-07 | Phase 2: New Destination IDs | Pending |
+| DATA-08 | Phase 2: New Destination IDs | Pending |
+| DATA-09 | Phase 2: New Destination IDs | Pending |
+| DATA-10 | Phase 2: New Destination IDs | Pending |
+| DATA-11 | Phase 2: New Destination IDs | Pending |
+| ACC-01 | Phase 3: Pet False Positive Fix | Pending |
 
 **Coverage:**
 - v1 requirements: 14 total
