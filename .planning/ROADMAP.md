@@ -51,6 +51,18 @@ Plans:
 **Goal:** All 10 teleport destinations added in the February 2026 game update (Trollheim, Paddewwa, Lassar, Dareeyak, Ourania, Barbarian, Khazard, Ice Plateau, Respawn, Teleport to Boat) display correct labels across all four portal tiers.
 **Depends on:** Phase 1
 **Requirements:** DATA-02, DATA-03, DATA-04, DATA-05, DATA-06, DATA-07, DATA-08, DATA-09, DATA-10, DATA-11
+
+**Plans:** 1 plan
+Plans:
+- [ ] 02-01-PLAN.md — Add 40 new portal IDs for 10 February 2026 destinations
+
+---
+
+### Phase 2: New Destination IDs
+
+**Goal:** All 10 teleport destinations added in the February 2026 game update (Trollheim, Paddewwa, Lassar, Dareeyak, Ourania, Barbarian, Khazard, Ice Plateau, Respawn, Teleport to Boat) display correct labels across all four portal tiers.
+**Depends on:** Phase 1
+**Requirements:** DATA-02, DATA-03, DATA-04, DATA-05, DATA-06, DATA-07, DATA-08, DATA-09, DATA-10, DATA-11
 **UI hint:** no
 
 **Success Criteria:**
