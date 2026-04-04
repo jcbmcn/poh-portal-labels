@@ -100,6 +100,10 @@ Plans:
 - Fix path: reproduce first → cross-reference triggering object ID against OSRS wiki pet pages → if Root Cause C, remove the offending ID; if Root Cause A/B, replace the `13615–13633` bypass in `isPortalObject()` with an explicit `PORTAL_LABELS.containsKey(id)` guard
 - The `13615–13633` bypass is already over-broad (8 of 19 IDs have no portal entry in `PORTAL_LABELS`); tightening it is a good cleanup regardless of root cause
 
+**Plans:** 1 plan
+Plans:
+- [ ] 03-01-PLAN.md — Tighten isPortalObject() guard to eliminate false positives from over-broad ID range
+
 ---
 
 ## Progress
