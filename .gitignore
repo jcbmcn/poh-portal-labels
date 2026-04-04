@@ -9,3 +9,17 @@ nb-configuration.xml
 nbproject/
 .vscode/
 CLAUDE.md
+.serena/project.yml
+.serena/memories/code_style.md
+.serena/memories/conventions.md
+.serena/memories/project_overview.md
+.serena/memories/suggested_commands.md
+bin/main/com/portalname/PortalNameConfig.class
+bin/main/com/portalname/PortalNameConfig$ColorSelection.class
+bin/main/com/portalname/PortalNameConfig$ColorStyle.class
+bin/main/com/portalname/PortalNameConfig$TextPosition.class
+bin/main/com/portalname/PortalNameEventSubscriber.class
+bin/main/com/portalname/PortalNameOverlay.class
+bin/main/com/portalname/PortalNamePlugin.class
+bin/test/com/portalname/PortalNamePluginTest.class
+.serena/.gitignore
