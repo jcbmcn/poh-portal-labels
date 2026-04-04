@@ -10,13 +10,13 @@
 |---|-------|------|--------------|------------------|
 | 1 | Multi-Plane Fix | Portals on every floor of a POH are labeled correctly | FLOOR-01, FLOOR-02, DATA-01, ACC-02 | 4 criteria |
 | 2 | New Destination IDs | All 10 missing teleport destinations display labels | DATA-02, DATA-03, DATA-04, DATA-05, DATA-06, DATA-07, DATA-08, DATA-09, DATA-10, DATA-11 | 3 criteria |
-| 3 | Pet False Positive Fix | Pets in POH no longer trigger phantom portal labels | ACC-01 | 3 criteria |
+| 3 | Pet False Positive Fix | 1/1 | Complete   | 2026-04-04 |
 
 ## Phases
 
 - [ ] **Phase 1: Multi-Plane Fix** - Fix the core tile scan bug so portals on upper floors are labeled; verify #35 closes as side effect
 - [ ] **Phase 2: New Destination IDs** - Add 40 object IDs for 10 teleport destinations added in the February 2026 game update
-- [ ] **Phase 3: Pet False Positive Fix** - Reproduce, identify root cause, and eliminate phantom labels appearing over pets
+- [x] **Phase 3: Pet False Positive Fix** - Reproduce, identify root cause, and eliminate phantom labels appearing over pets (completed 2026-04-04)
 
 ## Phase Details
 
@@ -100,9 +100,9 @@ Plans:
 - Fix path: reproduce first → cross-reference triggering object ID against OSRS wiki pet pages → if Root Cause C, remove the offending ID; if Root Cause A/B, replace the `13615–13633` bypass in `isPortalObject()` with an explicit `PORTAL_LABELS.containsKey(id)` guard
 - The `13615–13633` bypass is already over-broad (8 of 19 IDs have no portal entry in `PORTAL_LABELS`); tightening it is a good cleanup regardless of root cause
 
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 Plans:
-- [ ] 03-01-PLAN.md — Tighten isPortalObject() guard to eliminate false positives from over-broad ID range
+- [x] 03-01-PLAN.md — Tighten isPortalObject() guard to eliminate false positives from over-broad ID range
 
 ---
 

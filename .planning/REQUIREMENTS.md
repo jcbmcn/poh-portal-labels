@@ -26,7 +26,7 @@
 
 ### Accuracy
 
-- [ ] **ACC-01**: Pets and other NPCs in POH do not show portal destination labels — closes #39
+- [x] **ACC-01**: Pets and other NPCs in POH do not show portal destination labels — closes #39
 - [ ] **ACC-02**: No existing portal destination labels regress (all currently-working destinations continue to work after changes)
 
 ## v2 Requirements
@@ -74,7 +74,7 @@
 | DATA-09 | Phase 2: New Destination IDs | Pending |
 | DATA-10 | Phase 2: New Destination IDs | Pending |
 | DATA-11 | Phase 2: New Destination IDs | Pending |
-| ACC-01 | Phase 3: Pet False Positive Fix | Pending |
+| ACC-01 | Phase 3: Pet False Positive Fix | Complete |
 
 **Coverage:**
 - v1 requirements: 14 total
