@@ -19,10 +19,10 @@ Players see correct labels on all portals in their POH — always, on every floo
 - ✓ Text outline for readability — existing
 - ✓ **#41** Portals on upper floors of POH are correctly labeled (multi-plane scan) — Validated in Phase 01
 - ✓ **#35** Yannille portal is correctly labeled — Validated in Phase 01 (was plane detection, not missing IDs)
+- ✓ **#40** All 10 new teleport destinations are supported (Trollheim, Paddewwa, Lassar, Dareeyak, Ourania, Barbarian, Khazard, Ice Plateau, Respawn, Boat) — Validated in Phase 02
 
 ### Active
 
-- [ ] **#40** All 10 new teleport destinations are supported: Trollheim (Standard), Paddewwa (Ancient), Lassar (Ancient), Dareeyak (Ancient), Ourania (Lunar), Barbarian (Lunar), Khazard (Lunar), Ice Plateau (Lunar), Respawn (Arceuus), Teleport to Boat (Standard)
 - [ ] **#39** Pets in POH no longer trigger portal label display (false-positive NPC/object match fixed)
 
 ### Out of Scope
@@ -63,7 +63,7 @@ Players see correct labels on all portals in their POH — always, on every floo
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
 | Fix plane detection for upper floors | Root cause of #41 is confirmed single-plane scan | ✓ Fixed — `Constants.MAX_Z` plane loop in Phase 01 |
-| Source new teleport IDs from OSRS wiki | Wiki Object IDs page is the canonical source; EventSubscriber as fallback | — Pending |
+| Source new teleport IDs from OSRS wiki | Wiki Object IDs page is the canonical source; EventSubscriber as fallback | ✓ Done — 40 IDs sourced from ROADMAP research, Phase 02 |
 | Investigate pet false-positive before fixing | Root cause unknown — could be ID collision or NPC scan leak | — Pending |
 
 ---
@@ -86,4 +86,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-03 after Phase 01 (Multi-Plane Fix) completion*
+*Last updated: 2026-04-03 after Phase 02 (New Destination IDs) completion*
