@@ -169,6 +169,51 @@ public class PortalNameOverlay extends Overlay
         PORTAL_LABELS.put(33108, "Yanille Watchtower");
         PORTAL_LABELS.put(56047, "Yanille Watchtower");
         PORTAL_LABELS.put(13620, "Yanille Watchtower"); // pulled from event subscriber
+        // February 2026 update destinations
+        // Raging Echoes tier (IDs 60774–60783)
+        PORTAL_LABELS.put(60774, "Trollheim");
+        PORTAL_LABELS.put(60775, "Paddewwa");
+        PORTAL_LABELS.put(60776, "Lassar");
+        PORTAL_LABELS.put(60777, "Dareeyak");
+        PORTAL_LABELS.put(60778, "Ourania");
+        PORTAL_LABELS.put(60779, "Barbarian");
+        PORTAL_LABELS.put(60780, "Khazard");
+        PORTAL_LABELS.put(60781, "Ice Plateau");
+        PORTAL_LABELS.put(60782, "Respawn");
+        PORTAL_LABELS.put(60783, "Boat");
+        // Teak tier (IDs 60790–60799)
+        PORTAL_LABELS.put(60790, "Trollheim");
+        PORTAL_LABELS.put(60791, "Paddewwa");
+        PORTAL_LABELS.put(60792, "Lassar");
+        PORTAL_LABELS.put(60793, "Dareeyak");
+        PORTAL_LABELS.put(60794, "Ourania");
+        PORTAL_LABELS.put(60795, "Barbarian");
+        PORTAL_LABELS.put(60796, "Khazard");
+        PORTAL_LABELS.put(60797, "Ice Plateau");
+        PORTAL_LABELS.put(60798, "Respawn");
+        PORTAL_LABELS.put(60799, "Boat");
+        // Mahogany tier (IDs 60800–60809)
+        PORTAL_LABELS.put(60800, "Trollheim");
+        PORTAL_LABELS.put(60801, "Paddewwa");
+        PORTAL_LABELS.put(60802, "Lassar");
+        PORTAL_LABELS.put(60803, "Dareeyak");
+        PORTAL_LABELS.put(60804, "Ourania");
+        PORTAL_LABELS.put(60805, "Barbarian");
+        PORTAL_LABELS.put(60806, "Khazard");
+        PORTAL_LABELS.put(60807, "Ice Plateau");
+        PORTAL_LABELS.put(60808, "Respawn");
+        PORTAL_LABELS.put(60809, "Boat");
+        // Marble tier (IDs 60810–60819)
+        PORTAL_LABELS.put(60810, "Trollheim");
+        PORTAL_LABELS.put(60811, "Paddewwa");
+        PORTAL_LABELS.put(60812, "Lassar");
+        PORTAL_LABELS.put(60813, "Dareeyak");
+        PORTAL_LABELS.put(60814, "Ourania");
+        PORTAL_LABELS.put(60815, "Barbarian");
+        PORTAL_LABELS.put(60816, "Khazard");
+        PORTAL_LABELS.put(60817, "Ice Plateau");
+        PORTAL_LABELS.put(60818, "Respawn");
+        PORTAL_LABELS.put(60819, "Boat");
     }
 
     private final Map<String, Color> portalColors = new HashMap<>();
@@ -225,6 +270,16 @@ public class PortalNameOverlay extends Overlay
         portalColors.put("West Ardougne", config.westArdougneColor());
         portalColors.put("Yanille", config.yanilleColor());
         portalColors.put("Yanille Watchtower", config.yanilleWatchtowerColor());
+        portalColors.put("Trollheim", config.trollheimColor());
+        portalColors.put("Paddewwa", config.paddewwaColor());
+        portalColors.put("Lassar", config.lassarColor());
+        portalColors.put("Dareeyak", config.dareeyakColor());
+        portalColors.put("Ourania", config.ouraniaColor());
+        portalColors.put("Barbarian", config.barbarianColor());
+        portalColors.put("Khazard", config.khazardColor());
+        portalColors.put("Ice Plateau", config.icePlateauColor());
+        portalColors.put("Respawn", config.respawnColor());
+        portalColors.put("Boat", config.boatColor());
     }
 
     private void updateCustomNames()
@@ -473,6 +528,16 @@ public class PortalNameOverlay extends Overlay
     {
         int id = gameObject.getId();
 
+        // Raging Echoes portal tier for February 2026 destinations
+        if (id >= 60774 && id <= 60783)
+        {
+            return true;
+        }
+        // Teak / Mahogany / Marble portal tiers for February 2026 destinations
+        if (id >= 60790 && id <= 60819)
+        {
+            return true;
+        }
         // Object IDs 13615-13633 are portal frames/components with null or inconsistent names
         // These are valid portal objects that should display labels
         if (id >= 13615 && id <= 13633)
