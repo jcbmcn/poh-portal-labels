@@ -538,9 +538,11 @@ public class PortalNameOverlay extends Overlay
         {
             return true;
         }
-        // Object IDs 13615-13633 are portal frames/components with null or inconsistent names
-        // These are valid portal objects that should display labels
-        if (id >= 13615 && id <= 13633)
+        // If the object ID is already in our known portal map, it is a portal.
+        // This replaces the previous over-broad 13615-13633 range bypass, which admitted
+        // 7 IDs (13621, 13622, 13625, 13627, 13628, 13629, 13632) with no portal entry —
+        // potential source of false-positive labels on non-portal decorations or pets.
+        if (PORTAL_LABELS.containsKey(id))
         {
             return true;
         }
@@ -552,8 +554,6 @@ public class PortalNameOverlay extends Overlay
         }
 
         String name = composition.getName();
-        // Portal objects should have "Portal" in their name
-        // This filters out pets and other objects that might share the same ID
         return name != null && name.contains("Portal");
     }
 }
