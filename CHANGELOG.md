@@ -1,3 +1,17 @@
+# [1.2.0](https://github.com/jcbmcn/poh-portal-labels/compare/v1.1.2...v1.2.0) (2026-04-04)
+
+
+### Bug Fixes
+
+* **01-01:** wrap tile scan loops over all planes (Constants.MAX_Z) ([2f4ff28](https://github.com/jcbmcn/poh-portal-labels/commit/2f4ff28373de741494a0ba8c06610b43e7b005da)), closes [#35](https://github.com/jcbmcn/poh-portal-labels/issues/35)
+* **03-01:** tighten isPortalObject() — replace 13615-13633 range bypass with PORTAL_LABELS.containsKey ([56c4cf4](https://github.com/jcbmcn/poh-portal-labels/commit/56c4cf4c3f6c704f8a13be7d7241e0ff530cf17e))
+* upper-floor portals, 10 new destinations, pet false positives ([#35](https://github.com/jcbmcn/poh-portal-labels/issues/35) [#39](https://github.com/jcbmcn/poh-portal-labels/issues/39) [#40](https://github.com/jcbmcn/poh-portal-labels/issues/40) [#41](https://github.com/jcbmcn/poh-portal-labels/issues/41)) ([#42](https://github.com/jcbmcn/poh-portal-labels/issues/42)) ([cdffea3](https://github.com/jcbmcn/poh-portal-labels/commit/cdffea3c2f5805892dfa2eb7ba327cc4900a83a9))
+
+
+### Features
+
+* **02-01:** add 40 portal IDs for 10 Feb 2026 destinations ([983fc49](https://github.com/jcbmcn/poh-portal-labels/commit/983fc4901d6c74e91d47eb06365731ee305d71dc)), closes [#40](https://github.com/jcbmcn/poh-portal-labels/issues/40)
+
 ## [1.1.2](https://github.com/jcbmcn/poh-portal-labels/compare/v1.1.1...v1.1.2) (2025-12-11)
 
 
