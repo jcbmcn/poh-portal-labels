@@ -417,6 +417,96 @@ public interface PortalNameConfig extends Config {
     @Alpha
     default Color yanilleWatchtowerColor() { return Color.GREEN; }
 
+    @ConfigItem(
+            keyName = "trollheimColor",
+            name = "Trollheim",
+            description = "Color for Trollheim Portal",
+            section = "uniqueColors"
+    )
+    @Alpha
+    default Color trollheimColor() { return Color.GREEN; }
+
+    @ConfigItem(
+            keyName = "paddewwaColor",
+            name = "Paddewwa",
+            description = "Color for Paddewwa Portal",
+            section = "uniqueColors"
+    )
+    @Alpha
+    default Color paddewwaColor() { return Color.GREEN; }
+
+    @ConfigItem(
+            keyName = "lassarColor",
+            name = "Lassar",
+            description = "Color for Lassar Portal",
+            section = "uniqueColors"
+    )
+    @Alpha
+    default Color lassarColor() { return Color.GREEN; }
+
+    @ConfigItem(
+            keyName = "dareeyakColor",
+            name = "Dareeyak",
+            description = "Color for Dareeyak Portal",
+            section = "uniqueColors"
+    )
+    @Alpha
+    default Color dareeyakColor() { return Color.GREEN; }
+
+    @ConfigItem(
+            keyName = "ouraniaColor",
+            name = "Ourania",
+            description = "Color for Ourania Portal",
+            section = "uniqueColors"
+    )
+    @Alpha
+    default Color ouraniaColor() { return Color.GREEN; }
+
+    @ConfigItem(
+            keyName = "barbarianColor",
+            name = "Barbarian",
+            description = "Color for Barbarian Portal",
+            section = "uniqueColors"
+    )
+    @Alpha
+    default Color barbarianColor() { return Color.GREEN; }
+
+    @ConfigItem(
+            keyName = "khazardColor",
+            name = "Khazard",
+            description = "Color for Khazard Portal",
+            section = "uniqueColors"
+    )
+    @Alpha
+    default Color khazardColor() { return Color.GREEN; }
+
+    @ConfigItem(
+            keyName = "icePlateauColor",
+            name = "Ice Plateau",
+            description = "Color for Ice Plateau Portal",
+            section = "uniqueColors"
+    )
+    @Alpha
+    default Color icePlateauColor() { return Color.GREEN; }
+
+    @ConfigItem(
+            keyName = "respawnColor",
+            name = "Respawn",
+            description = "Color for Respawn Portal",
+            section = "uniqueColors"
+    )
+    @Alpha
+    default Color respawnColor() { return Color.GREEN; }
+
+    @ConfigItem(
+            keyName = "boatColor",
+            name = "Boat",
+            description = "Color for Boat Portal",
+            section = "uniqueColors"
+    )
+    @Alpha
+    default Color boatColor() { return Color.GREEN; }
+
     // CUSTOM NAME OVERRIDES SECTION
     @ConfigSection(
             name = "Custom Portal Names",
