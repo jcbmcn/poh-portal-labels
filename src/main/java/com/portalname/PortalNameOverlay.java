@@ -1,6 +1,7 @@
 package com.portalname;
 
 import net.runelite.api.Client;
+import net.runelite.api.Constants;
 import net.runelite.api.GameObject;
 import net.runelite.api.Point;
 import net.runelite.api.Scene;
@@ -270,23 +271,26 @@ public class PortalNameOverlay extends Overlay
             return null;
 
         Scene scene = client.getLocalPlayer().getWorldView().getScene();
-        Tile[][] tiles = scene.getTiles()[client.getLocalPlayer().getWorldLocation().getPlane()];
 
         boolean inPoh = false;
         outer:
-        for (int x = 0; x < tiles.length; x++)
+        for (int plane = 0; plane < Constants.MAX_Z; plane++)
         {
-            for (int y = 0; y < tiles[x].length; y++)
+            Tile[][] tiles = scene.getTiles()[plane];
+            for (int x = 0; x < tiles.length; x++)
             {
-                Tile tile = tiles[x][y];
-                if (tile == null) continue;
-
-                for (GameObject gameObject : tile.getGameObjects())
+                for (int y = 0; y < tiles[x].length; y++)
                 {
-                    if (gameObject != null && gameObject.getId() == ObjectID.POH_EXIT_PORTAL)
+                    Tile tile = tiles[x][y];
+                    if (tile == null) continue;
+
+                    for (GameObject gameObject : tile.getGameObjects())
                     {
-                        inPoh = true;
-                        break outer;
+                        if (gameObject != null && gameObject.getId() == ObjectID.POH_EXIT_PORTAL)
+                        {
+                            inPoh = true;
+                            break outer;
+                        }
                     }
                 }
             }
@@ -297,77 +301,81 @@ public class PortalNameOverlay extends Overlay
             return null;
         }
 
-        for (int x = 0; x < tiles.length; x++)
+        for (int plane = 0; plane < Constants.MAX_Z; plane++)
         {
-            for (int y = 0; y < tiles[x].length; y++)
+            Tile[][] tiles = scene.getTiles()[plane];
+            for (int x = 0; x < tiles.length; x++)
             {
-                Tile tile = tiles[x][y];
-                if (tile == null) continue;
-
-                for (GameObject gameObject : tile.getGameObjects())
+                for (int y = 0; y < tiles[x].length; y++)
                 {
-                    if (gameObject == null || gameObject.getId() == -1)
-                        continue;
+                    Tile tile = tiles[x][y];
+                    if (tile == null) continue;
 
-                    int id = gameObject.getId();
-                    String originalLabel = PORTAL_LABELS.get(id);
-
-                    if (originalLabel != null && isPortalObject(gameObject))
+                    for (GameObject gameObject : tile.getGameObjects())
                     {
-                        // Check for custom name override
-                        updateCustomNames();
-                        String label = customNameOverrides.getOrDefault(originalLabel, originalLabel);
-                        LocalPoint localLocation = gameObject.getLocalLocation();
-                        if (localLocation != null)
-                        {
-                            // Offset determines where the label is drawn on the portal
-                            int zOffset;
-                            switch (config.textPosition())
-                            {
-                                case TOP:
-                                    zOffset = 250;
-                                    break;
-                                case BOTTOM:
-                                    zOffset = -50;
-                                    break;
-                                case MIDDLE:
-                                default:
-                                    zOffset = 100;
-                                    break;
-                            }
-                            FontMetrics metrics = graphics.getFontMetrics();
-                            int xOffset = -(metrics.stringWidth(label) / 2);
-                            Point textLocation = Perspective.localToCanvas(client, localLocation,
-                                    client.getLocalPlayer().getWorldLocation().getPlane(), zOffset);
-                            if (textLocation != null)
-                            {
-                                graphics.setColor(Color.BLACK); // outline
-                                graphics.drawString(label, textLocation.getX() + xOffset + 1, textLocation.getY() + 1);
+                        if (gameObject == null || gameObject.getId() == -1)
+                            continue;
 
-                                // Determine color style and set colors
-                                if (config.colorStyle() == PortalNameConfig.ColorStyle.SINGLE)
+                        int id = gameObject.getId();
+                        String originalLabel = PORTAL_LABELS.get(id);
+
+                        if (originalLabel != null && isPortalObject(gameObject))
+                        {
+                            // Check for custom name override
+                            updateCustomNames();
+                            String label = customNameOverrides.getOrDefault(originalLabel, originalLabel);
+                            LocalPoint localLocation = gameObject.getLocalLocation();
+                            if (localLocation != null)
+                            {
+                                // Offset determines where the label is drawn on the portal
+                                int zOffset;
+                                switch (config.textPosition())
                                 {
-                                    Color color = config.singleColor();
-                                    graphics.setColor(color);
+                                    case TOP:
+                                        zOffset = 250;
+                                        break;
+                                    case BOTTOM:
+                                        zOffset = -50;
+                                        break;
+                                    case MIDDLE:
+                                    default:
+                                        zOffset = 100;
+                                        break;
                                 }
-                                else if (config.colorStyle() == PortalNameConfig.ColorStyle.MULTI)
+                                FontMetrics metrics = graphics.getFontMetrics();
+                                int xOffset = -(metrics.stringWidth(label) / 2);
+                                Point textLocation = Perspective.localToCanvas(client, localLocation,
+                                        tile.getPlane(), zOffset);
+                                if (textLocation != null)
                                 {
-                                    // Determine if user wants unique colors or portal colors
-                                    if (config.colorSelection() == PortalNameConfig.ColorSelection.PORTAL_COLORS)
+                                    graphics.setColor(Color.BLACK); // outline
+                                    graphics.drawString(label, textLocation.getX() + xOffset + 1, textLocation.getY() + 1);
+
+                                    // Determine color style and set colors
+                                    if (config.colorStyle() == PortalNameConfig.ColorStyle.SINGLE)
                                     {
-                                        Color portalColor = getPortalColor(gameObject);
-                                        graphics.setColor(portalColor);
+                                        Color color = config.singleColor();
+                                        graphics.setColor(color);
                                     }
-                                    // Use colors set by user per portal.
-                                    else
+                                    else if (config.colorStyle() == PortalNameConfig.ColorStyle.MULTI)
                                     {
-                                        updatePortalColors();   // pull current color config
-                                        // Use original label for color lookup to maintain consistency
-                                        Color textColor = portalColors.getOrDefault(originalLabel, Color.WHITE);
-                                        graphics.setColor(textColor);
+                                        // Determine if user wants unique colors or portal colors
+                                        if (config.colorSelection() == PortalNameConfig.ColorSelection.PORTAL_COLORS)
+                                        {
+                                            Color portalColor = getPortalColor(gameObject);
+                                            graphics.setColor(portalColor);
+                                        }
+                                        // Use colors set by user per portal.
+                                        else
+                                        {
+                                            updatePortalColors();   // pull current color config
+                                            // Use original label for color lookup to maintain consistency
+                                            Color textColor = portalColors.getOrDefault(originalLabel, Color.WHITE);
+                                            graphics.setColor(textColor);
+                                        }
                                     }
+                                    graphics.drawString(label, textLocation.getX() + xOffset, textLocation.getY());
                                 }
-                                graphics.drawString(label, textLocation.getX() + xOffset, textLocation.getY());
                             }
                         }
                     }
