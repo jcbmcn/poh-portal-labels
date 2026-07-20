@@ -1,3 +1,11 @@
+## [1.2.1](https://github.com/jcbmcn/poh-portal-labels/compare/v1.2.0...v1.2.1) (2026-07-20)
+
+
+### Bug Fixes
+
+* label portals by name, not hardcoded IDs ([#41](https://github.com/jcbmcn/poh-portal-labels/issues/41) [#43](https://github.com/jcbmcn/poh-portal-labels/issues/43) [#44](https://github.com/jcbmcn/poh-portal-labels/issues/44)) ([1a0be24](https://github.com/jcbmcn/poh-portal-labels/commit/1a0be24962093527d5e1e1412a218315db94d5b4)), closes [#45](https://github.com/jcbmcn/poh-portal-labels/issues/45)
+* label portals by name, not hardcoded IDs ([#41](https://github.com/jcbmcn/poh-portal-labels/issues/41) [#43](https://github.com/jcbmcn/poh-portal-labels/issues/43) [#44](https://github.com/jcbmcn/poh-portal-labels/issues/44)) ([#46](https://github.com/jcbmcn/poh-portal-labels/issues/46)) ([de98df8](https://github.com/jcbmcn/poh-portal-labels/commit/de98df86a7cf4f80a5810188fe6c28e78f8c3264))
+
 # [1.2.0](https://github.com/jcbmcn/poh-portal-labels/compare/v1.1.2...v1.2.0) (2026-04-04)
 
 
