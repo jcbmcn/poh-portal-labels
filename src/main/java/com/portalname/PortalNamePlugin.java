@@ -14,11 +14,13 @@ import net.runelite.client.ui.overlay.OverlayManager;
 )
 public class PortalNamePlugin extends Plugin
 {
-	// @Inject
-	// private Client client;
+	// Diagnostic tool for discovering portal object compositions. Disabled in
+	// production; uncomment the register/unregister calls below to enable logging.
+	@Inject
+	private net.runelite.client.eventbus.EventBus eventBus;
 
-	// @Inject
-	// private PortalNameEventSubscriber eventSubscriber;
+	@Inject
+	private PortalNameEventSubscriber eventSubscriber;
 
 	@Inject
 	private PortalNameConfig config;
@@ -32,7 +34,7 @@ public class PortalNamePlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		// UNCOMMENT BELOW TO GET LOGS FOR OBJECT IDs
+		// DIAGNOSTIC: uncomment to log base/impostor composition of clicked objects.
 		//eventBus.register(eventSubscriber);
                 log.debug("Portal Name plugin started!");
                 overlay.updatePortalColors();
@@ -42,7 +44,6 @@ public class PortalNamePlugin extends Plugin
 	@Override
 	protected void shutDown() throws Exception
 	{
-		// UNCOMMENT BELOW TO GET LOGS FOR OBJECT IDs
 		//eventBus.unregister(eventSubscriber);
                 log.debug("Portal Name plugin stopped!");
                 overlayManager.remove(overlay);
