@@ -1,3 +1,11 @@
+## [1.2.2](https://github.com/jcbmcn/poh-portal-labels/compare/v1.2.1...v1.2.2) (2026-07-20)
+
+
+### Bug Fixes
+
+* add build=standard for plugin-hub packaging ([0c0359f](https://github.com/jcbmcn/poh-portal-labels/commit/0c0359f2ce3150378cd86376bc92b60cc61a3c99))
+* add build=standard for plugin-hub packaging ([#47](https://github.com/jcbmcn/poh-portal-labels/issues/47)) ([a97e26f](https://github.com/jcbmcn/poh-portal-labels/commit/a97e26fd2cb61fbffddc89133dc81c07fddce95b))
+
 ## [1.2.1](https://github.com/jcbmcn/poh-portal-labels/compare/v1.2.0...v1.2.1) (2026-07-20)
 
 
