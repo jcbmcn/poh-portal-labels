@@ -9,7 +9,6 @@ import net.runelite.api.Perspective;
 import net.runelite.api.Tile;
 import net.runelite.api.Model;
 import net.runelite.api.JagexColor;
-import net.runelite.api.gameval.ObjectID;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -27,194 +26,9 @@ public class PortalNameOverlay extends Overlay
 {
 
 
-    private static final Map<Integer, String> PORTAL_LABELS = new HashMap<>();
+    /* Destination names are read dynamically from each portal's resolved impostor
+     * composition (see resolvePortalDestination). No hardcoded ID→name map. */
 
-    static {
-        PORTAL_LABELS.put(29341, "Annakarl");
-        PORTAL_LABELS.put(29349, "Annakarl");
-        PORTAL_LABELS.put(29357, "Annakarl");
-        PORTAL_LABELS.put(56052, "Annakarl");
-        PORTAL_LABELS.put(37592, "Ape Atoll Dungeon");
-        PORTAL_LABELS.put(37604, "Ape Atoll Dungeon");
-        PORTAL_LABELS.put(37616, "Ape Atoll Dungeon");
-        PORTAL_LABELS.put(56073, "Ape Atoll Dungeon");
-        PORTAL_LABELS.put(41416, "Arceuus Library");
-        PORTAL_LABELS.put(41417, "Arceuus Library");
-        PORTAL_LABELS.put(41418, "Arceuus Library");
-        PORTAL_LABELS.put(56063, "Arceuus Library");
-        PORTAL_LABELS.put(13619, "Ardougne");
-        PORTAL_LABELS.put(13626, "Ardougne");
-        PORTAL_LABELS.put(13633, "Ardougne");
-        PORTAL_LABELS.put(56045, "Ardougne");
-        PORTAL_LABELS.put(37591, "Barrows");
-        PORTAL_LABELS.put(37603, "Barrows");
-        PORTAL_LABELS.put(37615, "Barrows");
-        PORTAL_LABELS.put(56072, "Barrows");
-        PORTAL_LABELS.put(37584, "Battlefront");
-        PORTAL_LABELS.put(37596, "Battlefront");
-        PORTAL_LABELS.put(37608, "Battlefront");
-        PORTAL_LABELS.put(56065, "Battlefront");
-        PORTAL_LABELS.put(13618, "Camelot");
-        PORTAL_LABELS.put(33094, "Camelot");
-        PORTAL_LABELS.put(33100, "Camelot");
-        PORTAL_LABELS.put(33106, "Camelot");
-        PORTAL_LABELS.put(56043, "Camelot");
-        PORTAL_LABELS.put(33434, "Carrallanger");
-        PORTAL_LABELS.put(33437, "Carrallanger");
-        PORTAL_LABELS.put(33440, "Carrallanger");
-        PORTAL_LABELS.put(56061, "Carrallanger");
-        PORTAL_LABELS.put(33432, "Catherby");
-        PORTAL_LABELS.put(33435, "Catherby");
-        PORTAL_LABELS.put(33438, "Catherby");
-        PORTAL_LABELS.put(56059, "Catherby");
-        PORTAL_LABELS.put(37590, "Cemetery");
-        PORTAL_LABELS.put(37602, "Cemetery");
-        PORTAL_LABELS.put(37614, "Cemetery");
-        PORTAL_LABELS.put(56071, "Cemetery");
-        PORTAL_LABELS.put(50713, "Civitas illa Fortis");
-        PORTAL_LABELS.put(50714, "Civitas illa Fortis");
-        PORTAL_LABELS.put(50715, "Civitas illa Fortis");
-        PORTAL_LABELS.put(56057, "Civitas illa Fortis");
-        PORTAL_LABELS.put(37583, "Draynor Manor");
-        PORTAL_LABELS.put(37595, "Draynor Manor");
-        PORTAL_LABELS.put(37607, "Draynor Manor");
-        PORTAL_LABELS.put(56064, "Draynor Manor");
-        PORTAL_LABELS.put(13617, "Falador");
-        PORTAL_LABELS.put(13624, "Falador");
-        PORTAL_LABELS.put(13631, "Falador");
-        PORTAL_LABELS.put(56041, "Falador");
-        PORTAL_LABELS.put(37587, "Fenkenstrain's Castle");
-        PORTAL_LABELS.put(37599, "Fenkenstrain's Castle");
-        PORTAL_LABELS.put(37611, "Fenkenstrain's Castle");
-        PORTAL_LABELS.put(56068, "Fenkenstrain's Castle");
-        PORTAL_LABELS.put(29343, "Fishing Guild");
-        PORTAL_LABELS.put(29351, "Fishing Guild");
-        PORTAL_LABELS.put(29359, "Fishing Guild");
-        PORTAL_LABELS.put(56054, "Fishing Guild");
-        PORTAL_LABELS.put(33433, "Ghorrock");
-        PORTAL_LABELS.put(33436, "Ghorrock");
-        PORTAL_LABELS.put(33439, "Ghorrock");
-        PORTAL_LABELS.put(56060, "Ghorrock");
-        PORTAL_LABELS.put(13615, "Grand Exchange");
-        PORTAL_LABELS.put(33093, "Grand Exchange");
-        PORTAL_LABELS.put(33099, "Grand Exchange");
-        PORTAL_LABELS.put(33105, "Grand Exchange");
-        PORTAL_LABELS.put(56039, "Grand Exchange");
-        PORTAL_LABELS.put(37589, "Harmony Island");
-        PORTAL_LABELS.put(37601, "Harmony Island");
-        PORTAL_LABELS.put(37613, "Harmony Island");
-        PORTAL_LABELS.put(56070, "Harmony Island");
-        PORTAL_LABELS.put(29338, "Kharyrll");
-        PORTAL_LABELS.put(29346, "Kharyrll");
-        PORTAL_LABELS.put(29354, "Kharyrll");
-        PORTAL_LABELS.put(56049, "Kharyrll");
-        PORTAL_LABELS.put(29345, "Kourend");
-        PORTAL_LABELS.put(29353, "Kourend");
-        PORTAL_LABELS.put(29361, "Kourend");
-        PORTAL_LABELS.put(56056, "Kourend");
-        PORTAL_LABELS.put(13616, "Lumbridge");
-        PORTAL_LABELS.put(13623, "Lumbridge");
-        PORTAL_LABELS.put(13630, "Lumbridge");
-        PORTAL_LABELS.put(56040, "Lumbridge");
-        PORTAL_LABELS.put(29339, "Lunar Isle");
-        PORTAL_LABELS.put(29347, "Lunar Isle");
-        PORTAL_LABELS.put(29355, "Lunar Isle");
-        PORTAL_LABELS.put(56050, "Lunar Isle");
-        PORTAL_LABELS.put(29344, "Marim");
-        PORTAL_LABELS.put(29352, "Marim");
-        PORTAL_LABELS.put(29360, "Marim");
-        PORTAL_LABELS.put(56055, "Marim");
-        PORTAL_LABELS.put(37585, "Mind Altar");
-        PORTAL_LABELS.put(37597, "Mind Altar");
-        PORTAL_LABELS.put(37609, "Mind Altar");
-        PORTAL_LABELS.put(56066, "Mind Altar");
-        PORTAL_LABELS.put(37586, "Salve Graveyard");
-        PORTAL_LABELS.put(37598, "Salve Graveyard");
-        PORTAL_LABELS.put(37610, "Salve Graveyard");
-        PORTAL_LABELS.put(56067, "Salve Graveyard");
-        PORTAL_LABELS.put(33095, "Seers' Village");
-        PORTAL_LABELS.put(33101, "Seers' Village");
-        PORTAL_LABELS.put(33107, "Seers' Village");
-        PORTAL_LABELS.put(56044, "Seers' Village");
-        PORTAL_LABELS.put(29340, "Senntisten");
-        PORTAL_LABELS.put(29348, "Senntisten");
-        PORTAL_LABELS.put(29356, "Senntisten");
-        PORTAL_LABELS.put(56051, "Senntisten");
-        PORTAL_LABELS.put(33179, "Troll Stronghold");
-        PORTAL_LABELS.put(33180, "Troll Stronghold");
-        PORTAL_LABELS.put(33181, "Troll Stronghold");
-        PORTAL_LABELS.put(56058, "Troll Stronghold");
-        PORTAL_LABELS.put(33092, "Varrock");
-        PORTAL_LABELS.put(33098, "Varrock");
-        PORTAL_LABELS.put(33104, "Varrock");
-        PORTAL_LABELS.put(56038, "Varrock");
-        PORTAL_LABELS.put(29342, "Waterbirth Island");
-        PORTAL_LABELS.put(29350, "Waterbirth Island");
-        PORTAL_LABELS.put(29358, "Waterbirth Island");
-        PORTAL_LABELS.put(56053, "Waterbirth Island");
-        PORTAL_LABELS.put(37581, "Weiss");
-        PORTAL_LABELS.put(37593, "Weiss");
-        PORTAL_LABELS.put(37605, "Weiss");
-        PORTAL_LABELS.put(56062, "Weiss");
-        PORTAL_LABELS.put(37588, "West Ardougne");
-        PORTAL_LABELS.put(37600, "West Ardougne");
-        PORTAL_LABELS.put(37612, "West Ardougne");
-        PORTAL_LABELS.put(56069, "West Ardougne");
-        PORTAL_LABELS.put(33097, "Yanille");
-        PORTAL_LABELS.put(33102, "Yanille");
-        PORTAL_LABELS.put(33103, "Yanille");
-        PORTAL_LABELS.put(33109, "Yanille");
-        PORTAL_LABELS.put(56048, "Yanille");
-        PORTAL_LABELS.put(33096, "Yanille Watchtower");
-        PORTAL_LABELS.put(33108, "Yanille Watchtower");
-        PORTAL_LABELS.put(56047, "Yanille Watchtower");
-        PORTAL_LABELS.put(13620, "Yanille Watchtower"); // pulled from event subscriber
-        // February 2026 update destinations
-        // Raging Echoes tier (IDs 60774–60783)
-        PORTAL_LABELS.put(60774, "Trollheim");
-        PORTAL_LABELS.put(60775, "Paddewwa");
-        PORTAL_LABELS.put(60776, "Lassar");
-        PORTAL_LABELS.put(60777, "Dareeyak");
-        PORTAL_LABELS.put(60778, "Ourania");
-        PORTAL_LABELS.put(60779, "Barbarian");
-        PORTAL_LABELS.put(60780, "Khazard");
-        PORTAL_LABELS.put(60781, "Ice Plateau");
-        PORTAL_LABELS.put(60782, "Respawn");
-        PORTAL_LABELS.put(60783, "Boat");
-        // Teak tier (IDs 60790–60799)
-        PORTAL_LABELS.put(60790, "Trollheim");
-        PORTAL_LABELS.put(60791, "Paddewwa");
-        PORTAL_LABELS.put(60792, "Lassar");
-        PORTAL_LABELS.put(60793, "Dareeyak");
-        PORTAL_LABELS.put(60794, "Ourania");
-        PORTAL_LABELS.put(60795, "Barbarian");
-        PORTAL_LABELS.put(60796, "Khazard");
-        PORTAL_LABELS.put(60797, "Ice Plateau");
-        PORTAL_LABELS.put(60798, "Respawn");
-        PORTAL_LABELS.put(60799, "Boat");
-        // Mahogany tier (IDs 60800–60809)
-        PORTAL_LABELS.put(60800, "Trollheim");
-        PORTAL_LABELS.put(60801, "Paddewwa");
-        PORTAL_LABELS.put(60802, "Lassar");
-        PORTAL_LABELS.put(60803, "Dareeyak");
-        PORTAL_LABELS.put(60804, "Ourania");
-        PORTAL_LABELS.put(60805, "Barbarian");
-        PORTAL_LABELS.put(60806, "Khazard");
-        PORTAL_LABELS.put(60807, "Ice Plateau");
-        PORTAL_LABELS.put(60808, "Respawn");
-        PORTAL_LABELS.put(60809, "Boat");
-        // Marble tier (IDs 60810–60819)
-        PORTAL_LABELS.put(60810, "Trollheim");
-        PORTAL_LABELS.put(60811, "Paddewwa");
-        PORTAL_LABELS.put(60812, "Lassar");
-        PORTAL_LABELS.put(60813, "Dareeyak");
-        PORTAL_LABELS.put(60814, "Ourania");
-        PORTAL_LABELS.put(60815, "Barbarian");
-        PORTAL_LABELS.put(60816, "Khazard");
-        PORTAL_LABELS.put(60817, "Ice Plateau");
-        PORTAL_LABELS.put(60818, "Respawn");
-        PORTAL_LABELS.put(60819, "Boat");
-    }
 
     private final Map<String, Color> portalColors = new HashMap<>();
     private final Map<String, String> customNameOverrides = new HashMap<>();
@@ -325,33 +139,12 @@ public class PortalNameOverlay extends Overlay
         if (client.getGameState() != net.runelite.api.GameState.LOGGED_IN)
             return null;
 
+        if (client.getLocalPlayer() == null)
+            return null;
+
         Scene scene = client.getLocalPlayer().getWorldView().getScene();
 
-        boolean inPoh = false;
-        outer:
-        for (int plane = 0; plane < Constants.MAX_Z; plane++)
-        {
-            Tile[][] tiles = scene.getTiles()[plane];
-            for (int x = 0; x < tiles.length; x++)
-            {
-                for (int y = 0; y < tiles[x].length; y++)
-                {
-                    Tile tile = tiles[x][y];
-                    if (tile == null) continue;
-
-                    for (GameObject gameObject : tile.getGameObjects())
-                    {
-                        if (gameObject != null && gameObject.getId() == ObjectID.POH_EXIT_PORTAL)
-                        {
-                            inPoh = true;
-                            break outer;
-                        }
-                    }
-                }
-            }
-        }
-
-        if (!inPoh)
+        if (!isInPoh(scene))
         {
             return null;
         }
@@ -371,10 +164,9 @@ public class PortalNameOverlay extends Overlay
                         if (gameObject == null || gameObject.getId() == -1)
                             continue;
 
-                        int id = gameObject.getId();
-                        String originalLabel = PORTAL_LABELS.get(id);
+                        String originalLabel = resolvePortalDestination(gameObject);
 
-                        if (originalLabel != null && isPortalObject(gameObject))
+                        if (originalLabel != null)
                         {
                             // Check for custom name override
                             updateCustomNames();
@@ -524,36 +316,112 @@ public class PortalNameOverlay extends Overlay
         return new Color(rgb);
     }
 
-    private boolean isPortalObject(GameObject gameObject)
+    /**
+     * True only while inside a Player-Owned House. Detected by the presence of
+     * the POH exit portal in the scene. Gates all labeling so world objects are
+     * never labeled.
+     */
+    private boolean isInPoh(Scene scene)
     {
-        int id = gameObject.getId();
+        for (int plane = 0; plane < Constants.MAX_Z; plane++)
+        {
+            Tile[][] tiles = scene.getTiles()[plane];
+            for (int x = 0; x < tiles.length; x++)
+            {
+                for (int y = 0; y < tiles[x].length; y++)
+                {
+                    Tile tile = tiles[x][y];
+                    if (tile == null) continue;
 
-        // Raging Echoes portal tier for February 2026 destinations
-        if (id >= 60774 && id <= 60783)
-        {
-            return true;
+                    for (GameObject gameObject : tile.getGameObjects())
+                    {
+                        if (gameObject != null && isHomePortal(gameObject))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
         }
-        // Teak / Mahogany / Marble portal tiers for February 2026 destinations
-        if (id >= 60790 && id <= 60819)
-        {
-            return true;
-        }
-        // If the object ID is already in our known portal map, it is a portal.
-        // This replaces the previous over-broad 13615-13633 range bypass, which admitted
-        // 7 IDs (13621, 13622, 13625, 13627, 13628, 13629, 13632) with no portal entry —
-        // potential source of false-positive labels on non-portal decorations or pets.
-        if (PORTAL_LABELS.containsKey(id))
+        return false;
+    }
+
+    /**
+     * The POH home/exit portal — named exactly "Portal" with a "Home" menu option.
+     * Identified by name + action rather than object ID so the check survives house
+     * themes that change the portal's ID.
+     */
+    private boolean isHomePortal(GameObject gameObject)
+    {
+        if (gameObject.getId() == net.runelite.api.gameval.ObjectID.POH_EXIT_PORTAL)
         {
             return true;
         }
 
-        net.runelite.api.ObjectComposition composition = client.getObjectDefinition(id);
-        if (composition == null)
+        net.runelite.api.ObjectComposition comp = client.getObjectDefinition(gameObject.getId());
+        if (comp == null || !"Portal".equals(comp.getName()))
         {
             return false;
         }
 
-        String name = composition.getName();
-        return name != null && name.contains("Portal");
+        String[] actions = comp.getActions();
+        if (actions == null)
+        {
+            return false;
+        }
+        for (String action : actions)
+        {
+            if ("Home".equals(action))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Reads a POH teleport portal's current destination directly from the game,
+     * with no hardcoded ID→name table. Returns the destination name (e.g.
+     * "Ardougne", "Grand Exchange") or null if the object is not a configured
+     * teleport portal.
+     *
+     * POH portals are multiloc objects: the base composition is a nameless stub
+     * that transmogrifies into a destination-specific "impostor" based on the
+     * player's varbit state. Resolving the impostor gives the live destination,
+     * so this works on every floor, every house theme, and correctly follows a
+     * portal that toggles between destinations (e.g. Varrock ↔ Grand Exchange).
+     */
+    private static final String PORTAL_SUFFIX = " Portal";
+
+    private String resolvePortalDestination(GameObject gameObject)
+    {
+        net.runelite.api.ObjectComposition comp = client.getObjectDefinition(gameObject.getId());
+        if (comp == null)
+        {
+            return null;
+        }
+
+        // Dual-destination portals (e.g. Grand Exchange/Varrock) are multilocs: the
+        // base stub is nameless and the active destination lives on the impostor,
+        // which follows the player's varbit — so toggling the portal relabels live.
+        if (comp.getImpostorIds() != null)
+        {
+            comp = comp.getImpostor();
+            if (comp == null)
+            {
+                return null;
+            }
+        }
+
+        // Teleport portals are named "<Destination> Portal" (e.g. "Ardougne Portal").
+        // This excludes the POH home portal (named exactly "Portal"), incense
+        // burners, bookcases and every other object — no hardcoded ID list.
+        String name = comp.getName();
+        if (name == null || !name.endsWith(PORTAL_SUFFIX))
+        {
+            return null;
+        }
+
+        return name.substring(0, name.length() - PORTAL_SUFFIX.length());
     }
 }

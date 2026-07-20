@@ -33,14 +33,44 @@ public class PortalNameEventSubscriber
 
             if (clickedObject != null)
             {
-                log.debug("Clicked GameObject: ID={}, Class={}, WorldLocation={}",
-                        clickedObject.getId(),
-                        clickedObject.getClass().getSimpleName(),
-                        clickedObject.getWorldLocation());
+                dumpComposition(clickedObject.getId());
             }
             else
             {
-                log.debug("Clicked GameObject ID={}, but couldn't find matching GameObject in scene.", id);
+                log.info("[PORTAL-DIAG] Clicked GameObject ID={}, but couldn't find matching GameObject in scene.", id);
+            }
+        }
+    }
+
+    private void dumpComposition(int id)
+    {
+        ObjectComposition base = client.getObjectDefinition(id);
+        if (base == null)
+        {
+            log.info("[PORTAL-DIAG] id={} base composition null", id);
+            return;
+        }
+
+        int[] impostorIds = base.getImpostorIds();
+        log.info("[PORTAL-DIAG] id={} baseName='{}' baseActions={} varbit={} varp={} impostorIds={}",
+                id,
+                base.getName(),
+                java.util.Arrays.toString(base.getActions()),
+                base.getVarbitId(),
+                base.getVarPlayerId(),
+                impostorIds == null ? "null" : java.util.Arrays.toString(impostorIds));
+
+        if (impostorIds != null)
+        {
+            ObjectComposition imp = base.getImpostor();
+            if (imp == null)
+            {
+                log.info("[PORTAL-DIAG]   impostor=null");
+            }
+            else
+            {
+                log.info("[PORTAL-DIAG]   impostorName='{}' impostorActions={}",
+                        imp.getName(), java.util.Arrays.toString(imp.getActions()));
             }
         }
     }
