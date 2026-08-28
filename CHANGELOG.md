@@ -1,3 +1,11 @@
+## [1.2.3](https://github.com/jcbmcn/poh-portal-labels/compare/v1.2.2...v1.2.3) (2026-08-28)
+
+
+### Bug Fixes
+
+* only label portals inside a POH instance ([#49](https://github.com/jcbmcn/poh-portal-labels/issues/49)) ([1f9c5c4](https://github.com/jcbmcn/poh-portal-labels/commit/1f9c5c4df07b85939c77eda5d1484db7e6ecd1cb))
+* recognize Wilderness (Annihilation) theme exit portal ([#48](https://github.com/jcbmcn/poh-portal-labels/issues/48)) ([fbe5191](https://github.com/jcbmcn/poh-portal-labels/commit/fbe5191f97f73faad5e303d527f32d8c0cde0159))
+
 ## [1.2.2](https://github.com/jcbmcn/poh-portal-labels/compare/v1.2.1...v1.2.2) (2026-07-20)
 
 
