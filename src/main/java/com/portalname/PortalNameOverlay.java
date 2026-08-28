@@ -355,18 +355,28 @@ public class PortalNameOverlay extends Overlay
     }
 
     /**
-     * The POH home/exit portal — named exactly "Portal" with a "Home" menu option.
-     * Identified by name + action rather than object ID so the check survives house
-     * themes that change the portal's ID.
+     * The POH home/exit portal — named exactly "Portal". Detected by object ID
+     * because the two known exit portals (classic 4525 and the Wilderness theme's
+     * 60789, added 25 Feb 2026) are both named "Portal" but carry no identifying
+     * menu action ("Home" belongs to the open-world house portals, not the in-POH
+     * exit portal — see #48, #49). A name+action fallback is kept below for any
+     * future exit portal variant.
      */
+    // 60789 = RuneLite ObjectID1.POH_EXIT_PORTAL_WILDERNESS (package-private, so
+    // inlined); sources: OSRS wiki "Exit portal" (id2 = 60789) and
+    // RuneScape:Cache/2026/236.4 (new object "Portal 60789 poh_exit_portal_wilderness").
+    private static final int POH_EXIT_PORTAL_WILDERNESS = 60789;
+
     private boolean isHomePortal(GameObject gameObject)
     {
-        if (gameObject.getId() == net.runelite.api.gameval.ObjectID.POH_EXIT_PORTAL)
+        int id = gameObject.getId();
+        if (id == net.runelite.api.gameval.ObjectID.POH_EXIT_PORTAL
+                || id == POH_EXIT_PORTAL_WILDERNESS)
         {
             return true;
         }
 
-        net.runelite.api.ObjectComposition comp = client.getObjectDefinition(gameObject.getId());
+        net.runelite.api.ObjectComposition comp = client.getObjectDefinition(id);
         if (comp == null || !"Portal".equals(comp.getName()))
         {
             return false;
