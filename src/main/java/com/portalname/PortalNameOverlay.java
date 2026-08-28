@@ -144,7 +144,13 @@ public class PortalNameOverlay extends Overlay
 
         Scene scene = client.getLocalPlayer().getWorldView().getScene();
 
-        if (!isInPoh(scene))
+        // Gate labeling on being inside an actual POH instance. A POH is always an
+        // instanced region, while world house portals (e.g. the Prifddinas portal at
+        // 3239,6077, which sits next to the Gauntlet entrance) are not. The exit-portal
+        // scan alone is not sufficient: those open-world portals share the "Portal"
+        // name and "Home" menu option the scan looks for, so labels could render in
+        // the regular world (see #49).
+        if (!client.isInInstancedRegion() || !isInPoh(scene))
         {
             return null;
         }
@@ -317,9 +323,11 @@ public class PortalNameOverlay extends Overlay
     }
 
     /**
-     * True only while inside a Player-Owned House. Detected by the presence of
-     * the POH exit portal in the scene. Gates all labeling so world objects are
-     * never labeled.
+     * True while inside a Player-Owned House instance. Detected by the presence of
+     * the POH exit portal in the scene. Must be combined with
+     * {@link Client#isInInstancedRegion()} because open-world house portals (which
+     * share the "Portal" name and "Home" option) also satisfy this scan; the
+     * instanced-region check is what actually proves we are inside a POH.
      */
     private boolean isInPoh(Scene scene)
     {
